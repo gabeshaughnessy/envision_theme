@@ -1,4 +1,7 @@
 .htaccess
+wp-content/themes/kingsize/cache/
+envision interiors.esproj
+envision interiors.esproj/*
 wp-*.php
 xmlrpc.php
 wp-admin/
