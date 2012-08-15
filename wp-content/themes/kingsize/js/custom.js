@@ -134,7 +134,7 @@ fix_flash();
     //HIDING MENU         
     
   var navHeight = $('#menu_wrap').height();
-   var hideHeight = navHeight - 120; 
+   var hideHeight = navHeight - 140; 
     
     
     //click on hide menu button (arrow points up)                            

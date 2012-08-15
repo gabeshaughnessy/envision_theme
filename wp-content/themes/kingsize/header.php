@@ -15,6 +15,7 @@ $get_options = get_option('wm_theme_settings');
 		<title><?php wp_title('&laquo; ', true, 'right'); ?><?php bloginfo('name'); ?></title> <!-- Website Title of WordPress Blog -->	
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
 		<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" /> <!-- Style Sheet -->
+		<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_directory' ); ?>/custom-styles.css" /> <!-- Style Sheet -->
 		<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" /> <!-- Pingback Call -->
 
 		<!--[if lte IE 8]>						
