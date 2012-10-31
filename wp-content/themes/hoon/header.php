@@ -43,6 +43,27 @@ Hoon (<?php echo VERSION ?>) - Designed and Built by Luke McDonald
 	<div id="branding" class="container clearfix">
 		
 		<header id="header" role="banner">
+		<hgroup id="site-info" class="container" role="banner">
+			    <?php
+			    $blog_info = get_bloginfo( 'name' );
+			    $logo_url = hoon_option( 'logo_url' );
+			    $site_title_tag = ( is_home() || is_front_page() ) ? 'h1' : 'div'; ?>
+		
+			    <<?php echo $site_title_tag; ?> id="site-title" class="row">
+			    	<a class="<?php echo ( $logo_url ) ? 'image-logo' : 'text-logo' ?> <?php echo esc_attr( hoon_main_column_width() ); ?>" href="<?php echo esc_url( home_url() ); ?>" title="<?php echo esc_attr( $blog_info ); ?>" >
+			    		<?php if ( $logo_url ) : ?>
+			    			<img src="<?php echo esc_url( $logo_url ); ?>" alt="<?php esc_attr_e( 'Logo', 'hoon') ?>" />
+			    		<?php else : ?>
+			    			<?php echo esc_html( $blog_info ); ?>
+			    		<?php endif; // end text logo check ?>
+			    	</a>
+			    </<?php echo $site_title_tag; ?>><!-- #site-title -->
+		
+		
+			    <?php if( hoon_option( 'text_logo_desc' ) ) : ?>
+			    	<h2 id="site-description"><?php bloginfo( 'description' ); ?></h2>
+			    <?php endif; ?>
+			</hgroup><!-- .site-info -->
 			<?php if ( 1 == hoon_option( 'top_search_form' ) ) :  ?>
 			    <div id="top-search">
 			    	<?php get_search_form(); ?>
