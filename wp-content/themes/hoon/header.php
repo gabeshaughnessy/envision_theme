@@ -100,7 +100,7 @@ Hoon (<?php echo VERSION ?>) - Designed and Built by Luke McDonald
 	
 	</div><!-- #branding -->
 	
-	<hgroup id="site-info" class="container" role="banner">
+	<!--<hgroup id="site-info" class="container" role="banner">
 	    <?php
 	    $blog_info = get_bloginfo( 'name' );
 	    $logo_url = hoon_option( 'logo_url' );
@@ -116,7 +116,7 @@ Hoon (<?php echo VERSION ?>) - Designed and Built by Luke McDonald
 	    	</a>
 	    </<?php echo $site_title_tag; ?>><!-- #site-title -->
 
-
+<!--
 	    <?php if( hoon_option( 'text_logo_desc' ) ) : ?>
 	    	<h2 id="site-description"><?php bloginfo( 'description' ); ?></h2>
 	    <?php endif; ?>
