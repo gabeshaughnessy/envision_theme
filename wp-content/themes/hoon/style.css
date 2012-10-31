@@ -87,6 +87,7 @@ body.admin-bar #top-search {
   float: left;
   width: 100%;
   position: relative;
+  z-index: 3;
   /* Dropdowns */
 
   /* Styles */
