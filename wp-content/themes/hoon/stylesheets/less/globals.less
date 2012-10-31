@@ -1,0 +1,223 @@
+//@import 'functions.less';
+
+
+/* Globals
+----------------------------------------------- */
+	
+/* RESET */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+html {
+    font-size: 62.5%; 
+}
+
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+nav ol, 
+nav ul {
+    margin: 0;
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+/* HTML & BODY */
+/* Apply a natural box layout model to all elements */
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+body { 
+    position: relative; 
+    -webkit-font-smoothing: antialiased; 
+}
+
+
+/* LINKS */
+a { 
+	text-decoration: none; 
+	line-height: inherit; 
+
+	&:focus {
+		outline: none;
+	}
+}
+	
+
+/* LISTS */
+ul, ol, dl {
+    margin-bottom: 1.8em;
+}
+
+ul, ol { 	
+	ul, ol {
+		margin-bottom: 0;
+	}
+}
+
+ul { list-style: inside; }
+ol { list-style: decimal; }
+ol, 
+ul.square, 
+ul.circle, 
+ul.disc { margin-left: 1.8em; }
+ul.square { list-style: square outside; }
+ul.circle { list-style: circle outside; }
+ul.disc { list-style: disc outside; }
+ul.large li { line-height: 21px; }
+	
+
+/* TABLES */
+table thead tr th,
+table tfoot tr th,
+table tbody tr td,
+table tr td,
+table tfoot tr td { 
+	line-height: 18px; 
+	text-align: left; 
+}
+
+table thead tr th,
+table tfoot tr td { 
+	padding: 8px 10px 9px; 
+	font-size: 14px; 
+	font-weight: bold; 
+}
+
+table thead tr th:first-child, 
+table tfoot tr td:first-child { 
+	border-left: none; 
+}
+table thead tr th:last-child, 
+table tfoot tr td:last-child { 
+	border-right: none; 
+}
+
+table tbody tr.even,
+table tbody tr td { 
+	padding: 9px 10px; 
+	vertical-align: top; 
+	border: none; 
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse; 
+	border-spacing: 0;
+    background: none; 
+    border: none;
+    margin-bottom: 1.8em;
+    border: 1px solid;
+    
+    td {
+		vertical-align: top;
+    }
+}
+
+
+/* MISC */
+.left { float: left; }
+.right { float: right; }
+.text-left   { text-align: left; }
+.text-right  { text-align: right; }
+.text-center { text-align: center; }
+.hide        { display: none; }
+.frame {
+	padding: 9px;
+	border: 1px solid;
+}
+
+/* IFRAMES */
+.player iframe {
+	background: url(images/loader.gif) center center no-repeat
+}
+
+/* DISPLAY HELPERS (Non-Semantic) 
+----------------------------------------------- */
+.ir { 
+	display: block; 
+	border: 0; 
+	text-indent: -999em; 
+	overflow: hidden; 
+	background-color: transparent; 
+	background-repeat: no-repeat; 
+	text-align: left; 
+	direction: ltr; 
+}
+
+.ir br { 
+	display: none; 
+}
+
+.hidden { 
+	display: none !important; 
+	visibility: hidden; 
+}
+
+.visuallyhidden { 
+	border: 0; 
+	clip: rect(0 0 0 0); 
+	height: 1px; 
+	margin: -1px; 
+	overflow: hidden; 
+	padding: 0; 
+	position: absolute; 
+	width: 1px; 
+}
+
+.visuallyhidden.focusable:active, 
+.visuallyhidden.focusable:focus { 
+	clip: auto; 
+	height: auto; 
+	margin: 0; 
+	overflow: visible; 
+	position: static; 
+	width: auto; 
+}
+
+.invisible { 
+	visibility: hidden; 
+}
+
+.clear {
+	clear: both;
+	display: block;
+	font-size: 0;
+	height: 0;
+	line-height: 0;
+	width: 100%;
+}
+
+
