@@ -381,12 +381,12 @@ body.admin-bar #top-search {
 	float: left;
 	left: 50%;
 	position: relative;
+	height: 0;
 }
 #site-title a.image-logo{
 	right: 50%;
 	position: relative;
 	text-align: center;
-	top: 45px;
 }
 
 /* MAIN CONTENT
@@ -2733,6 +2733,9 @@ div.panel {
 /* NAVIGATION
 ----------------------------------------------- */
 @media only screen and (max-width: 767px) {
+ #site-title {
+ 	height: auto;
+ }
   #primary-nav .nav {
     display: none !important;
     visibility: hidden;
