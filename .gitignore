@@ -1,6 +1,7 @@
 .htaccess
 db/*
 wp-content/themes/kingsize/
+wp-content/themes/twentytwelve/
 envision interiors.esproj
 envision interiors.esproj/*
 wp-*.php
@@ -9,6 +10,8 @@ wp-admin/
 wp-includes/
 wp-content/plugins/
 wp-content/uploads/
+wp-content/backups/
+wp-content/634a1f73d3-backups/
 wp-content/blogs.dir/
 wp-content/upgrade/*
 wp-content/backup-db/*
