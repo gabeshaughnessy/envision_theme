@@ -87,6 +87,7 @@ body.admin-bar #top-search {
   float: left;
   width: 100%;
   position: relative;
+  z-index: 3;
   /* Dropdowns */
 
   /* Styles */
@@ -371,6 +372,24 @@ body.admin-bar #top-search {
   margin: 0;
   font-style: italic;
 }
+/* site info overrides */
+#site-info {
+	margin:  0;
+	padding:  0;
+	text-align:  left;
+}
+#site-title {
+	float: left;
+	left: 50%;
+	position: relative;
+	height: 0;
+}
+#site-title a.image-logo{
+	right: 50%;
+	position: relative;
+	text-align: center;
+}
+
 /* MAIN CONTENT
 ----------------------------------------------- */
 #main {
@@ -2715,6 +2734,9 @@ div.panel {
 /* NAVIGATION
 ----------------------------------------------- */
 @media only screen and (max-width: 767px) {
+ #site-title {
+ 	height: auto;
+ }
   #primary-nav .nav {
     display: none !important;
     visibility: hidden;
