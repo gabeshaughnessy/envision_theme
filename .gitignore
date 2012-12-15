@@ -1,6 +1,6 @@
 .htaccess
 db/*
-wp-content/themes/kingsize/cache/*
+wp-content/themes/kingsize/
 envision interiors.esproj
 envision interiors.esproj/*
 wp-*.php
