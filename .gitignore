@@ -1,5 +1,7 @@
 .htaccess
 db/*
+*.sql
+envision interiors.esproj/
 wp-content/themes/kingsize/
 wp-content/themes/twentytwelve/
 envision interiors.esproj
