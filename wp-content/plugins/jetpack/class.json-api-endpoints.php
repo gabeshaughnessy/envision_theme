@@ -170,8 +170,14 @@ abstract class WPCOM_JSON_API_Endpoint {
 		case 'text/x-json' :
 		case 'text/json' :
 			$return = json_decode( $input );
-			if ( JSON_ERROR_NONE !== json_last_error() ) {
-				return null;
+			if ( function_exists( 'json_last_error' ) ) {
+				if ( JSON_ERROR_NONE !== json_last_error() ) {
+					return null;
+				}
+			} else {
+				if ( is_null( $return ) && json_encode( null ) !== $input ) {
+					return null;
+				}
 			}
 
 			if ( is_object( $return ) ) {
@@ -193,7 +199,7 @@ abstract class WPCOM_JSON_API_Endpoint {
 		return $this->cast_and_filter( $return, $this->request_format, $return_default_values );
 	}
 
-	function cast_and_filter( $data, $documentation, $return_default_values = false ) {
+	function cast_and_filter( $data, $documentation, $return_default_values = false, $for_output = false ) {
 		$return_as_object = false;
 		if ( is_object( $data ) ) {
 			$data = (array) $data;
@@ -241,7 +247,7 @@ abstract class WPCOM_JSON_API_Endpoint {
 				continue;
 			}
 
-			$this->cast_and_filter_item( $return, $type, $key, $data[$key], $types );
+			$this->cast_and_filter_item( $return, $type, $key, $data[$key], $types, $for_output );
 		}
 
 		if ( $return_as_object ) {
@@ -262,7 +268,7 @@ abstract class WPCOM_JSON_API_Endpoint {
 	 *
 	 * Handles object typing - object>post means an object of type post
 	 */
-	function cast_and_filter_item( &$return, $type, $key, $value, $types = array() ) {
+	function cast_and_filter_item( &$return, $type, $key, $value, $types = array(), $for_output = false ) {
 		if ( is_string( $type ) ) {
 			$type = compact( 'type' );
 		}
@@ -279,7 +285,7 @@ abstract class WPCOM_JSON_API_Endpoint {
 			if ( is_array( $value ) ) {
 				if ( !empty( $types[0] ) ) {
 					$next_type = array_shift( $types );
-					return $this->cast_and_filter_item( $return, $next_type, $key, $value, $types );
+					return $this->cast_and_filter_item( $return, $next_type, $key, $value, $types, $for_output );
 				}
 			}
 
@@ -287,7 +293,7 @@ abstract class WPCOM_JSON_API_Endpoint {
 			if ( !is_string( $value ) ) {
 				if ( !empty( $types[0] ) && 'false' === $types[0]['type'] ) {
 					$next_type = array_shift( $types );
-					return $this->cast_and_filter_item( $return, $next_type, $key, $value, $types );
+					return $this->cast_and_filter_item( $return, $next_type, $key, $value, $types, $for_output );
 				}
 			}
 			$return[$key] = (string) $value;
@@ -321,14 +327,14 @@ abstract class WPCOM_JSON_API_Endpoint {
 			if ( is_string( $value ) ) {
 				if ( !empty( $types[0] ) ) {
 					$next_type = array_shift( $types );
-					return $this->cast_and_filter_item( $return, $next_type, $key, $value, $types );
+					return $this->cast_and_filter_item( $return, $next_type, $key, $value, $types, $for_output );
 				}
 			}
 
 			if ( isset( $type['children'] ) ) {
 				$children = array();
 				foreach ( (array) $value as $k => $child ) {
-					$this->cast_and_filter_item( $children, $type['children'], $k, $child );
+					$this->cast_and_filter_item( $children, $type['children'], $k, $child, array(), $for_output );
 				}
 				$return[$key] = (array) $children;
 				break;
@@ -339,7 +345,12 @@ abstract class WPCOM_JSON_API_Endpoint {
 		case 'iso 8601 datetime' :
 		case 'datetime' :
 			// (string)s
-			list( $return[$key], $return["{$key}_gmt"] ) = $this->parse_date( (string) $value );
+			$dates = $this->parse_date( (string) $value );
+			if ( $for_output ) {
+				$return[$key] = $this->format_date( $dates[1], $dates[0] );
+			} else {
+				list( $return[$key], $return["{$key}_gmt"] ) = $dates;
+			}
 			break;
 		case 'float' :
 			$return[$key] = (float) $value;
@@ -356,30 +367,30 @@ abstract class WPCOM_JSON_API_Endpoint {
 			// Fallback object -> false
 			if ( is_scalar( $value ) || is_null( $value ) ) {
 				if ( !empty( $types[0] ) && 'false' === $types[0]['type'] ) {
-					return $this->cast_and_filter_item( $return, 'false', $key, $value, $types );
+					return $this->cast_and_filter_item( $return, 'false', $key, $value, $types, $for_output );
 				}
 			}
 
 			if ( isset( $type['children'] ) ) {
 				$children = array();
 				foreach ( (array) $value as $k => $child ) {
-					$this->cast_and_filter_item( $children, $type['children'], $k, $child );
+					$this->cast_and_filter_item( $children, $type['children'], $k, $child, array(), $for_output );
 				}
 				$return[$key] = (object) $children;
 				break;
 			}
 
 			if ( isset( $type['subtype'] ) ) {
-				return $this->cast_and_filter_item( $return, $type['subtype'], $key, $value, $types );
+				return $this->cast_and_filter_item( $return, $type['subtype'], $key, $value, $types, $for_output );
 			}
 
 			$return[$key] = (object) $value;
 			break;
 		case 'post' :
-			$return[$key] = (object) $this->cast_and_filter( $value, $this->post_object_format );
+			$return[$key] = (object) $this->cast_and_filter( $value, $this->post_object_format, false, $for_output );
 			break;
 		case 'comment' :
-			$return[$key] = (object) $this->cast_and_filter( $value, $this->comment_object_format );
+			$return[$key] = (object) $this->cast_and_filter( $value, $this->comment_object_format, false, $for_output );
 			break;
 		case 'tag' :
 		case 'category' :
@@ -393,7 +404,7 @@ abstract class WPCOM_JSON_API_Endpoint {
 			if ( 'category' === $type ) {
 				$docs['parent'] = '(int)';
 			}
-			$return[$key] = (object) $this->cast_and_filter( $value, $docs );
+			$return[$key] = (object) $this->cast_and_filter( $value, $docs, false, $for_output );
 			break;
 		case 'post_reference' :
 		case 'comment_reference' :
@@ -402,7 +413,7 @@ abstract class WPCOM_JSON_API_Endpoint {
 				'type' => '(string)',
 				'link' => '(URL)',
 			);
-			$return[$key] = (object) $this->cast_and_filter( $value, $docs );
+			$return[$key] = (object) $this->cast_and_filter( $value, $docs, false, $for_output );
 			break;
 		case 'geo' :
 			$docs = array(
@@ -410,7 +421,7 @@ abstract class WPCOM_JSON_API_Endpoint {
 				'longitude' => '(float)',
 				'address'   => '(string)',
 			);
-			$return[$key] = (object) $this->cast_and_filter( $value, $docs );
+			$return[$key] = (object) $this->cast_and_filter( $value, $docs, false, $for_output );
 			break;
 		case 'author' :
 			$docs = array(
@@ -421,7 +432,7 @@ abstract class WPCOM_JSON_API_Endpoint {
 				'avatar_URL'  => '(URL)',
 				'profile_URL' => '(URL)',
 			);
-			$return[$key] = (object) $this->cast_and_filter( $value, $docs );
+			$return[$key] = (object) $this->cast_and_filter( $value, $docs, false, $for_output );
 			break;
 		case 'attachment' :
 			$docs = array(
@@ -433,7 +444,7 @@ abstract class WPCOM_JSON_API_Endpoint {
 				'height'    => '(int)',
 				'duration'  => '(int)',
 			);
-			$return[$key] = (object) $this->cast_and_filter( $value, apply_filters( 'wpcom_json_api_attachment_cast_and_filter', $docs ) );
+			$return[$key] = (object) $this->cast_and_filter( $value, apply_filters( 'wpcom_json_api_attachment_cast_and_filter', $docs ), false, $for_output );
 			break;
 		default :
 			trigger_error( "Unknown API casting type {$type['type']}", E_USER_WARNING );
@@ -992,7 +1003,11 @@ EOPHP;
 
 		$gmt_offset = get_option( 'gmt_offset' );
 		$local_time = $time + $gmt_offset * 3600;
-		$datetime->setTimestamp( $local_time );
+		
+		$date = getdate( ( int ) $local_time );
+		$datetime->setDate( $date['year'], $date['mon'], $date['mday'] );
+		$datetime->setTime( $date['hours'], $date['minutes'], $date['seconds'] );
+        
 		$local      = $datetime->format( 'Y-m-d H:i:s' );
 		return array( (string) $local, (string) $gmt );
 	}
@@ -1060,6 +1075,7 @@ abstract class WPCOM_JSON_API_Post_Endpoint extends WPCOM_JSON_API_Endpoint {
 		'short_URL' => '(URL) The wp.me short URL.',
 		'content'   => '(HTML) <code>context</code> dependent.',
 		'excerpt'   => '(HTML) <code>context</code> dependent.',
+		'slug'      => '(string) The name (slug) for your post, used in URLs.',
 		'status'    => array(
 			'publish' => 'The post is published.',
 			'draft'   => 'The post is saved as a draft.',
@@ -1077,6 +1093,7 @@ abstract class WPCOM_JSON_API_Post_Endpoint extends WPCOM_JSON_API_Endpoint {
 		'pings_open'     => '(bool) Is the post open for pingbacks, trackbacks?',
 		'comment_count'  => '(int) The number of comments for this post.',
 		'like_count'     => '(int) The number of likes for this post.',
+		'featured_image' => '(URL) The URL to the featured image for this post if it has one.',
 		'format'         => array(), // see constructor
 		'geo'            => '(object>geo|false)',
 		'publicize_URLs' => '(array:URL) Array of Twitter and Facebook URLs published by this post.',
@@ -1099,7 +1116,7 @@ abstract class WPCOM_JSON_API_Post_Endpoint extends WPCOM_JSON_API_Endpoint {
 	}
 
 	function the_password_form() {
-		return __( 'This post is password protected.' , 'jetpack');
+		return __( 'This post is password protected.', 'jetpack' );
 	}
 
 	function get_post_by( $field, $post_id, $context = 'display' ) {
@@ -1230,6 +1247,9 @@ abstract class WPCOM_JSON_API_Post_Endpoint extends WPCOM_JSON_API_Endpoint {
 			case 'status' :
 				$response[$key] = (string) get_post_status( $post->ID );
 				break;
+			case 'slug' :
+				$response[$key] = (string) $post->post_name;
+			break;
 			case 'password' :
 				$response[$key] = (string) $post->post_password;
 				break;
@@ -1259,6 +1279,13 @@ abstract class WPCOM_JSON_API_Post_Endpoint extends WPCOM_JSON_API_Endpoint {
 				break;
 			case 'like_count' :
 				$response[$key] = (int) $this->api->post_like_count( array( 'post_id' => $post->ID, 'blog_id' => $blog_id ) );
+				break;
+			case 'featured_image' :
+				$image_attributes = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+				if ( is_array( $image_attributes ) && isset( $image_attributes[0] ) )
+					$response[$key] = (string) $image_attributes[0];
+				else
+					$response[$key] = '';
 				break;
 			case 'format' :
 				$response[$key] = (string) get_post_format( $post->ID );
@@ -1715,9 +1742,11 @@ class WPCOM_JSON_API_Update_Post_Endpoint extends WPCOM_JSON_API_Post_Endpoint {
 			}
 		} else {
 			$input = $this->input( false );
+
 			if ( !is_array( $input ) || !$input ) {
 				return new WP_Error( 'invalid_input', 'Invalid request input', 400 );
 			}
+
 			$post = get_post( $post_id );
 			if ( !$post || is_wp_error( $post ) ) {
 				return new WP_Error( 'unknown_post', 'Unknown post', 404 );
@@ -1725,6 +1754,10 @@ class WPCOM_JSON_API_Update_Post_Endpoint extends WPCOM_JSON_API_Post_Endpoint {
 
 			if ( !current_user_can( 'edit_post', $post->ID ) ) {
 				return new WP_Error( 'unauthorized', 'User cannot edit post', 403 );
+			}
+
+			if ( 'publish' === $input['status'] && 'publish' !== $post->post_status && !current_user_can( 'publish_post', $post->ID ) ) {
+				$input['status'] = 'pending';
 			}
 
 			$post_type = get_post_type_object( $post->post_type );
@@ -1759,8 +1792,30 @@ class WPCOM_JSON_API_Update_Post_Endpoint extends WPCOM_JSON_API_Post_Endpoint {
  		}
 
 		unset( $input['tags'], $input['categories'] );
-
+		
 		$insert = array();
+		
+		if ( !empty( $input['slug'] ) ) {
+			$insert['post_name'] = $input['slug'];
+			unset( $input['slug'] );
+		}
+
+		if ( true === $input['comments_open'] )
+			$insert['comment_status'] = 'open';
+		else if ( false === $input['comments_open'] )
+			$insert['comment_status'] = 'closed';
+			
+		if ( true === $input['pings_open'] )
+			$insert['ping_status'] = 'open';
+		else if ( false === $input['pings_open'] )
+			$insert['ping_status'] = 'closed';
+			
+		unset( $input['comments_open'], $input['pings_open'] );
+		
+		$publicize = $input['publicize'];
+		$publicize_custom_message = $input['publicize_message'];
+		unset( $input['publicize'], $input['publicize_message'] );
+		
 		foreach ( $input as $key => $value ) {
 			$insert["post_$key"] = $value;
 		}
@@ -1803,7 +1858,22 @@ class WPCOM_JSON_API_Update_Post_Endpoint extends WPCOM_JSON_API_Post_Endpoint {
 		if ( !$post_id || is_wp_error( $post_id ) ) {
 			return null;
 		}
-
+			
+		if ( $publicize === false ) {
+			foreach ( $GLOBALS['publicize_ui']->publicize->get_services( 'all' ) as $name => $service ) {
+				update_post_meta( $post_id, $GLOBALS['publicize_ui']->publicize->POST_SKIP . $name, 1 );
+			}
+		} else if ( is_array( $publicize ) && ( count ( $publicize ) > 0 ) ) {
+			foreach ( $GLOBALS['publicize_ui']->publicize->get_services( 'all' ) as $name => $service ) {
+				if ( !in_array( $name, $publicize ) ) {
+					update_post_meta( $post_id, $GLOBALS['publicize_ui']->publicize->POST_SKIP . $name, 1 );
+				}
+			}
+		}
+		
+		if ( !empty( $publicize_custom_message ) )
+			update_post_meta( $post_id, $GLOBALS['publicize_ui']->publicize->POST_MESS, trim( $publicize_custom_message ) ); 
+		
 		if ( is_array( $categories ) )
 			wp_set_object_terms( $post_id, $categories, 'category' );
 		if ( is_array( $tags ) )
@@ -2509,7 +2579,7 @@ class WPCOM_JSON_API_Update_Comment_Endpoint extends WPCOM_JSON_API_Comment_Endp
 			return new WP_Error( 'unknown_post', 'Unknown post', 404 );
 		}
 
-		if ( -1 == get_option( 'blog_public' ) && !is_user_member_of_blog() ) {
+		if ( -1 == get_option( 'blog_public' ) && ! is_user_member_of_blog() && ! is_super_admin() ) {
 			return new WP_Error( 'unauthorized', 'User cannot create comments', 403 );
 		}
 
@@ -2579,7 +2649,7 @@ class WPCOM_JSON_API_Update_Comment_Endpoint extends WPCOM_JSON_API_Comment_Endp
 
 		$return = $this->get_comment( $comment_id, $args['context'] );
 		if ( !$return ) {
-			return new WP_Error( 400, __( 'Comment cache problem?' , 'jetpack') );
+			return new WP_Error( 400, __( 'Comment cache problem?', 'jetpack' ) );
 		}
 		if ( is_wp_error( $return ) ) {
 			return $return;
@@ -2924,10 +2994,14 @@ new WPCOM_JSON_API_Update_Post_Endpoint( array(
 		'title'     => '(HTML) The post title.',
 		'content'   => '(HTML) The post content.',
 		'excerpt'   => '(HTML) An optional post excerpt.',
+		'slug'      => '(string) The name (slug) for your post, used in URLs.',
+		'publicize' => '(array|bool) True or false if the post be publicized to external services. An array of services if we only want to publicize to a select few. Defaults to true.',
+		'publicize_message' => '(string) Custom message to be publicized to external services.',
 		'status'    => array(
 			'publish' => 'Publish the post.',
 			'private' => 'Privately publish the post.',
 			'draft'   => 'Save the post as a draft.',
+			'pending' => 'Mark the post as pending editorial approval.',
 		),
 		'password'  => '(string) The plaintext password protecting the post, or, more likely, the empty string if the post is not password protected.',
 		'parent'    => "(int) The post ID of the new post's parent.",
@@ -2985,6 +3059,7 @@ new WPCOM_JSON_API_Update_Post_Endpoint( array(
 	"pings_open": true,
 	"comment_count": 0,
 	"like_count": 0,
+	"featured_image": "",
 	"format": "standard",
 	"geo": false,
 	"publicize_URLs": [
@@ -3050,10 +3125,14 @@ new WPCOM_JSON_API_Update_Post_Endpoint( array(
 		'title'     => '(HTML) The post title.',
 		'content'   => '(HTML) The post content.',
 		'excerpt'   => '(HTML) An optional post excerpt.',
+		'slug'      => '(string) The name (slug) for your post, used in URLs.',
+		'publicize' => '(array|bool) True or false if the post be publicized to external services. An array of services if we only want to publicize to a select few. Defaults to true.',
+		'publicize_message' => '(string) Custom message to be publicized to external services.',
 		'status'    => array(
 			'publish' => 'Publish the post.',
 			'private' => 'Privately publish the post.',
 			'draft'   => 'Save the post as a draft.',
+			'pending' => 'Mark the post as pending editorial approval.',
 		),
 		'password'   => '(string) The plaintext password protecting the post, or, more likely, the empty string if the post is not password protected.',
 		'parent'     => "(int) The post ID of the new post's parent.",
@@ -3105,6 +3184,7 @@ new WPCOM_JSON_API_Update_Post_Endpoint( array(
 	"pings_open": true,
 	"comment_count": 5,
 	"like_count": 0,
+	"featured_image": "",
 	"format": "standard",
 	"geo": false,
 	"publicize_URLs": [
@@ -3200,6 +3280,7 @@ new WPCOM_JSON_API_Update_Post_Endpoint( array(
 	"pings_open": true,
 	"comment_count": 5,
 	"like_count": 0,
+	"featured_image": "",
 	"format": "standard",
 	"geo": false,
 	"publicize_URLs": [

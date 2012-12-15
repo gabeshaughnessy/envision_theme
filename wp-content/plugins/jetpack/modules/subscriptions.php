@@ -8,26 +8,26 @@
 
 add_action( 'jetpack_modules_loaded', 'jetpack_subscriptions_load' );
  
+Jetpack_Sync::sync_options( __FILE__,
+	'home',
+	'blogname',
+	'siteurl',
+	'page_on_front',
+	'permalink_structure',
+	'category_base',
+	'rss_use_excerpt',
+	'subscription_options',
+	'stb_enabled',
+	'stc_enabled',
+	'tag_base'
+);
+
+Jetpack_Sync::sync_posts( __FILE__ );
+Jetpack_Sync::sync_comments( __FILE__ );
+
 function jetpack_subscriptions_load() {
 	Jetpack::enable_module_configurable( __FILE__ );
 	Jetpack::module_configuration_load( __FILE__, 'jetpack_subscriptions_configuration_load' );
-
-	Jetpack_Sync::sync_options( __FILE__,
-		'home',
-		'blogname',
-		'siteurl',
-		'page_on_front',
-		'permalink_structure',
-		'category_base',
-		'rss_use_excerpt',
-		'subscription_options',
-		'stb_enabled',
-		'stc_enabled',
-		'tag_base'
-	);
-
-	Jetpack_Sync::sync_posts( __FILE__ );
-	Jetpack_Sync::sync_comments( __FILE__ );
 }
 
 function jetpack_subscriptions_configuration_load() {
@@ -444,14 +444,14 @@ class Jetpack_Subscriptions {
 		if ( FALSE === has_filter( 'comment_form', 'show_subscription_checkbox' ) && 1 == get_option( 'stc_enabled', 1 ) ) {
 			// Subscribe to comments checkbox
 			$str .= '<p class="comment-subscription-form"><input type="checkbox" name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;"' . $comments_checked . ' /> ';
-			$str .= '<label class="subscribe-label" id="subscribe-label" for="subscribe_comments">' . __( 'Notify me of follow-up comments by email.', 'jetpack' ) . '</label>';
+			$str .= '<label class="subscribe-label" id="subscribe-label" for="subscribe_comments" style="display: inline;">' . __( 'Notify me of follow-up comments by email.', 'jetpack' ) . '</label>';
 			$str .= '</p>';
 		}
 
 		if ( 1 == get_option( 'stb_enabled', 1 ) ) {
 			// Subscribe to blog checkbox
 			$str .= '<p class="comment-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;"' . $blog_checked . ' /> ';
-			$str .=	'<label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">' . __( 'Notify me of new posts by email.', 'jetpack' ) . '</label>';
+			$str .=	'<label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog" style="display: inline;">' . __( 'Notify me of new posts by email.', 'jetpack' ) . '</label>';
 			$str .= '</p>';
 		}
 
@@ -581,7 +581,7 @@ class Jetpack_Subscriptions_Widget extends WP_Widget {
 			$email_address = $current_user->user_email;
 
 		// Display a subscribe form ?>
-		<a name="subscribe-blog"></a>
+		<a id="subscribe-blog"></a>
 		<form action="" method="post" accept-charset="utf-8" id="subscribe-blog">
 			<?php
 			if ( ! isset ( $_GET['subscribe'] ) ) {

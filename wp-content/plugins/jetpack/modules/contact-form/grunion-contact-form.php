@@ -518,7 +518,7 @@ class Grunion_Contact_Form extends Crunion_Contact_Form_Shortcode {
 			$post = get_post( $attributes['id'] );
 
 			if ( $post ) {
-				$default_subject = sprintf( _x( '%1$s %2$s', '%1$s = blog name, %2$s = post title' , 'jetpack'), $default_subject, Grunion_Contact_Form_Plugin::strip_tags( $post->post_title ) );
+				$default_subject = sprintf( _x( '%1$s %2$s', '%1$s = blog name, %2$s = post title', 'jetpack' ), $default_subject, Grunion_Contact_Form_Plugin::strip_tags( $post->post_title ) );
 				$post_author = get_userdata( $post->post_author );
 				$default_to = $post_author->user_email;
 			} 
@@ -990,8 +990,14 @@ class Grunion_Contact_Form extends Crunion_Contact_Form_Shortcode {
 
 		$message .= __( 'Time:', 'jetpack' ) . ' ' . $time . "\n";
 		$message .= __( 'IP Address:', 'jetpack' ) . ' ' . $comment_author_IP . "\n";
-		$message .= __( 'Contact Form URL:', 'jetpack' ) . ' ' . get_permalink( $post->ID ) . "\n";
 
+		if ( $widget ) {
+			$url = home_url( '/' );
+		} else {
+			$url = get_permalink( $post->ID );
+		}
+
+		$message .= __( 'Contact Form URL:', 'jetpack' ) . " $url\n";
 
 		if ( is_user_logged_in() ) {
 			$message .= "\n";
