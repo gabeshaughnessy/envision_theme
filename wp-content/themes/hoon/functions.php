@@ -82,7 +82,7 @@ function hoon_setup_hoon() {
 	add_image_size( 'theme-wide',    753, 999, false );
 	add_image_size( 'theme-wider',   831, 999, false );
 	add_image_size( 'theme-widest',  910, 999, false );
-	
+	add_image_size( 'supplier',  250, 250, false );
 	add_image_size( 'theme-default-crop', 675, 450, true );
 	add_image_size( 'theme-wide-crop',    753, 502, true );
 	add_image_size( 'theme-wider-crop',   831, 554, true );
@@ -144,7 +144,10 @@ function hoon_setup_hoon() {
 	add_action( 'wp_enqueue_scripts',    'hoon_localize_background' );
 	add_action( 'wp_enqueue_scripts',    'hoon_localize_slideshow' );
 	add_action( 'wp_enqueue_scripts',    'hoon_localize_jplayer' );
+	
 	add_action( 'wp_enqueue_scripts',    'hoon_localize_view' ); // Get images for view.js lightbox
+	
+	
 	
 	/* Filter the gallery images with user options. */
 	add_filter( 'hoon_gallery_image', 'hoon_gallery_image', 10, 4 );
@@ -155,6 +158,9 @@ function hoon_setup_hoon() {
 	/* Initialize theme options */
 	locate_template( 'options.php', true );
 	hoon_options_init();
+	
+	/* add in isotope */
+	require_once('isotope.php');
 	
 }
 

@@ -2854,3 +2854,22 @@ div.panel {
     display: block !important;
   }
 }
+
+
+.filter-menu {
+	display:  block;
+	margin: 5px 0 15px;
+	width: 100%;
+	float: left;
+}
+.filter-menu li {
+	float:  left;
+	list-style: none;
+	margin: 1px;
+}
+.suppliers-container {
+	padding-top: 10px;
+}
+.suppliers-container img {
+	border: 1px solid #ddd;
+}
