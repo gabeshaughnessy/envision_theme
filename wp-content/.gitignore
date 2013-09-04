@@ -1,31 +1,3 @@
-.htaccess
-db/*
-*.sql
-envision interiors.esproj/
-wp-content/themes/kingsize/
-wp-content/themes/twentytwelve/
-envision interiors.esproj
-envision interiors.esproj/*
-wp-*.php
-xmlrpc.php
-wp-admin/
-wp-includes/
-wp-content/plugins/
-wp-content/uploads/
-wp-content/backups/
-wp-content/634a1f73d3-backups/
-wp-content/blogs.dir/
-wp-content/upgrade/*
-wp-content/backup-db/*
-wp-content/advanced-cache.php
-wp-content/wp-cache-config.php
-wp-content/cache/*
-wp-content/cache/supercache/*
-sitemap.xml
-sitemap.xml.gz
-readme.html
-license.txt
-
 *~
 .svn
 .cvs
