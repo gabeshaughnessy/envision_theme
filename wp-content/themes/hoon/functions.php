@@ -153,7 +153,7 @@ function hoon_setup_hoon() {
 	add_filter( 'hoon_gallery_image', 'hoon_gallery_image', 10, 4 );
 	
 	/* Like It Up */
-	//locate_template( 'includes/like-it-up/like-it-up.php', true );
+	locate_template( 'includes/like-it-up/like-it-up.php', true );
 
 	/* Initialize theme options */
 	locate_template( 'options.php', true );

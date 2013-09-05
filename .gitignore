@@ -10,7 +10,6 @@ wp-*.php
 xmlrpc.php
 wp-admin/
 wp-includes/
-wp-content/plugins/
 wp-content/uploads/
 wp-content/backups/
 wp-content/634a1f73d3-backups/
