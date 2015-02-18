@@ -21,14 +21,15 @@ Template Name: Suppliers
 			    	<?php get_template_part( 'partials/post', 'title' ); ?>
 			    	<?php get_template_part( 'partials/post', 'content' ); ?>
 		    	<div class="row panel filter-menu-container">
-		    	<ul id="profile-filter" class=" filter-menu">
+		    	<ul id="profile-filter" class="filter-menu">
 		    	<?php echo isotope_filter_menu('supplier-type'); ?>
 		    	</ul>
+		    	</div>
 		    	
 		    	<div class="row filter-target suppliers-container">
 			    	<?php get_template_part( 'loop', 'suppliers' ); ?>
 		    	</div>
-			    </div>
+			    
 			    </div>
 			    <?php if ( comments_open() || pings_open() ) {
 			    	get_template_part( 'partials/post', 'meta' ); 
