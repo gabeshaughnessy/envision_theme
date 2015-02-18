@@ -14,7 +14,6 @@ container.isotope({
 // filter items when filter link is clicked
 jQuery('.filter-menu a').click(function(){
   var selector = jQuery(this).attr('data-filter');
-  console.log(selector);
   jQuery('.filter-target').first().isotope({ filter: selector });
   return false;
 });
