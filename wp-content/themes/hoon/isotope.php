@@ -38,7 +38,7 @@ return "no terms";
 
 add_action('wp_enqueue_scripts', 'isotope_enqueue');
 function isotope_enqueue(){
-wp_enqueue_script('isotope', get_bloginfo('stylesheet_directory') .'/javascripts/isotope.min.js', 'jquery');//isotope from metafizzy
+wp_enqueue_script('isotope', get_bloginfo('stylesheet_directory') .'/javascripts/isotope.pkgd.min.js', 'jquery');//isotope from metafizzy
 wp_enqueue_script('custom', get_bloginfo('stylesheet_directory') .'/javascripts/custom.js', 'isotope');//isotope from metafizzy
 }
 
