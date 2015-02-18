@@ -670,7 +670,19 @@ function hoon_theme_styles() {
  * Load Required Theme Scripts
  *
  */
+function modify_jquery() {
+	if (!is_admin()) {
+		// comment out the next two lines to load the local copy of jQuery
+		wp_deregister_script('jquery');
+		wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js', false, '1.8.1');
+		
+	}
+}
+add_action('init', 'modify_jquery');
+
 function hoon_theme_scripts() {
+	//Making jQuery Google API
+
 	
 	wp_enqueue_script( 'jquery' );
 	
