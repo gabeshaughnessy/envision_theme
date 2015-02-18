@@ -20,10 +20,11 @@ Template Name: Suppliers
 				<div class="entry-content">
 			    	<?php get_template_part( 'partials/post', 'title' ); ?>
 			    	<?php get_template_part( 'partials/post', 'content' ); ?>
-		    	<div class="row panel filter-menu-container">
-		    	<ul id="profile-filter" class=" filter-menu">
+			    	<ul id="profile-filter" class=" filter-menu">
 		    	<?php echo isotope_filter_menu('supplier-type'); ?>
 		    	</ul>
+		    	<div class="row panel filter-menu-container">
+		    	
 		    	
 		    	<div class="row filter-target suppliers-container">
 			    	<?php get_template_part( 'loop', 'suppliers' ); ?>
