@@ -1,0 +1,56 @@
+<?php
+/*
+Template Name: Home Page
+*/
+
+get_header();
+
+//HERO AREA
+	//TITLE
+	//SUB-TITLE (BLOG DESCRIPTION)
+	//BG-IMAGE
+//INTRO 
+	//LEAD
+	//SECTION NAVIGATION
+//SECTION - WORK
+	//SECTION HERO
+		//BG-IMAGE
+		//TITLE
+	//SECTION-INTRO
+		//LEAD
+	//PROJECT GALLERY
+		//PROJECTS (selected)
+			//PROJECT
+				//THUMBNAIL
+				//TITLE
+				//TAGS - suppliers
+				//PERMALINK
+	//SECTION CALL TO ACTION
+//SECTION - ABOUT US
+	//SECTION HERO
+		//BG-IMAGE
+		//TITLE
+	//SECTION CONTENT (repeater)
+		//IMAGE | WYSIWYG
+		//CENTERED WYSIWYG w/TITLE
+//SECTION - CONTACT
+	//SECTION HERO
+		//BG-IMAGE
+		//TITLE
+	//SECTION-INTRO
+		//LEAD
+	//CONTACT DETAILS
+		//ADDRESS
+		//PHONE / FAX
+		//EMAIL
+	//MAP
+	//CONTACT FORM
+	//SOCIAL LINKS
+		//ICON
+		//CALL TO ACTION / TITLE
+		//URL
+
+		
+get_footer();
+
+?>

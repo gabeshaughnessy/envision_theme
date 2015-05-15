@@ -1,0 +1,72 @@
+
+// CUSTOM MIXINS ___________________________________
+@mixin boxShadow($horz: 0, $vert: 1px, $blur: 2px, $spread: 0, $color: rgba(0,0,0,1), $inset: "") {
+
+  -webkit-box-shadow:$horz $vert $blur $spread $color #{$inset};
+  -moz-box-shadow:$horz $vert $blur $spread $color #{$inset};
+  -o-box-shadow:$horz $vert $blur $spread $color #{$inset};
+  box-shadow:$horz $vert $blur $spread $color #{$inset};
+}
+@mixin noBoxShadow() {
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      -o-box-shadow: none;
+      box-shadow: none;
+}
+@mixin textShadow($x: 0, $y: 0, $spread: 0, $color: rgba(0,0,0,.5), $x2: '', $y2: '', $spread2: '', $color2: '' ){
+  -webkit-text-shadow: $x $y $spread $color, #{$x2} #{$y2} #{$spread2} #{$color2};
+  -moz-text-shadow: $x $y $spread $color, #{$x2} #{$y2} #{$spread2} #{$color2};
+  -o-text-shadow: $x $y $spread $color, #{$x2} #{$y2} #{$spread2} #{$color2};
+  text-shadow: $x $y $spread $color, #{$x2} #{$y2} #{$spread2} #{$color2};
+}
+
+@mixin high-contrast-font {
+  -webkit-font-smoothing: antialiased;
+  // text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+@mixin webkit-gradient($style: linear, $start: left bottom, $end: left top, $color1:"", $color2:"", $color3:"", $color4:"" ){
+background-image: -webkit-gradient($style, $start, $end, #{$color1}, #{$color2}, #{$color3}, #{$color4});
+}
+@mixin moz-linear-gradient($start: left bottom, $color1:"", $color2:"", $color3:"", $color4:"" ){
+    background-image: -moz-linear-gradient($start, #{$color1}, #{$color2}, #{$color3}, #{$color4});
+    }
+
+    @mixin gradient($g-color){
+      background-color: $g-color;
+      @include filter-gradient($g-color, $g-color, vertical);
+      @include background-image(linear-gradient(top, $g-color 0%,$g-color 100%));
+
+    }
+
+@mixin white-fade($percent){
+  background: #fff;
+  background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) $percent);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop($percent,rgba(255,255,255,1)));
+  background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) $percent);
+  background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) $percent);
+  background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) $percent);
+  background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) $percent);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+
+}
+
+@mixin gradient-border($color : rgba(100,100,100,1)){
+
+    border-width: 3px;
+    border-style: solid;
+    -webkit-border-image:
+      -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(50%,$color), color-stop(100%,rgba(255,255,255,0)));
+    -webkit-border-image:
+      -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,$color 50%,rgba(255,255,255,0) 100%);
+    -moz-border-image:
+      -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, $color 50%, rgba(255,255,255,0) 100%);
+    -o-border-image:
+      -o-linear-gradient(top,  rgba(255,255,255,0) 0%,$color 50%,rgba(255,255,255,0) 100%);
+    border-image:
+      linear-gradient(to bottom,  rgba(255,255,255,0) 0%,$color 50%,rgba(255,255,255,0) 100%);
+
+}
+
+
+
+

@@ -1,0 +1,21 @@
+%button {
+  -webkit-font-smoothing: antialiased;
+  background-color: $base-button-color;
+  border-radius: $base-border-radius;
+  color: white;
+  display: inline-block;
+  font-size: $base-font-size;
+  font-weight: 600;
+  font-family: $base-font-family;
+  line-height: 1;
+  text-decoration: none;
+  text-align: center;
+  padding: $gutter 4em;
+  @media screen and (max-width: 768px){
+    padding: $gutter 1em;
+  }
+  &:hover {
+    background-color: $hover-button-color;
+    color: white;
+  }
+}

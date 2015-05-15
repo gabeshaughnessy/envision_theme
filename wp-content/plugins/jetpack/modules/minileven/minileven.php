@@ -61,6 +61,9 @@ function jetpack_mobile_exclude() {
 	if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX )
 		$exclude = false;
 
+	if ( isset( $GLOBALS['wp_customize'] ) )
+		return true;
+
 	return $exclude;
 }
 
@@ -164,14 +167,6 @@ function jetpack_mobile_theme_setup() {
 					header( 'Location: http://blackberry.wordpress.org/download/' );
 					exit;
 				break;
-				case 'nokia':
-					header( 'Location: http://nokia.wordpress.org/download/' );
-					exit;
-				break;
-				case 'windowsphone':
-					header( 'Location: http://social.zune.net/redirect?type=phoneApp&id=5f64ad85-f801-e011-9264-00237de2db9e' );
-					exit;
-				break;
 			}
 		}
 
@@ -180,8 +175,8 @@ function jetpack_mobile_theme_setup() {
 		add_action('option_template', 'jetpack_mobile_template');
 		add_action('option_stylesheet', 'jetpack_mobile_stylesheet');
 
-		if ( function_exists( 'disable_safecss_style' ) && ! get_option( 'wp_mobile_custom_css' ) )
-			add_action( 'init', 'disable_safecss_style', 11 );
+		if ( class_exists( 'Jetpack_Custom_CSS' ) && method_exists( 'Jetpack_Custom_CSS', 'disable' ) && ! get_option( 'wp_mobile_custom_css' ) )
+			add_action( 'init', array( 'Jetpack_Custom_CSS', 'disable' ), 11 );
 
 		do_action( 'mobile_setup' );
 	}
@@ -195,48 +190,16 @@ if (isset($_COOKIE['akm_mobile']) && $_COOKIE['akm_mobile'] == 'false') {
 	add_action('wp_footer', 'jetpack_mobile_available');
 }
 
-add_action( 'wp_footer', 'mobile_admin_bar', 20 );
-function mobile_admin_bar() {
-	global $wp_version;
-
-	if ( jetpack_is_mobile() && 1 != version_compare( $wp_version, '3.5-beta3-22631' ) ) :
-		// This fix was made unnecessary in http://core.trac.wordpress.org/changeset/22636
-	?>
-	<script type="text/javascript" id='mobile-admin-bar'>
-		jQuery( function( $ ) {
-			var menupop = $( '#wpadminbar .ab-top-menu > li.menupop' )
-				.unbind( 'mouseover' )
-				.unbind( 'mouseout' )
-				.click( function ( e ) {
-					$( this ).toggleClass( 'hover' );
-					$( '#wpadminbar .menupop' ).not( this ).removeClass( 'hover' );
-				} )
-				.children( 'a' )
-					.click( function( e ) {
-						e.preventDefault();
-					} );
-			$( '#wpadminbar' ).css( 'position', 'absolute' );
-			$( '#ab-reblog-box' ).css( 'position', 'absolute' );
-		} );
-	</script>
-	<?php
-	endif;
-}
-
 function jetpack_mobile_app_promo()  {
 	?>
 	<script type="text/javascript">
 		if ( ! navigator.userAgent.match( /wp-(iphone|android|blackberry|nokia|windowsphone)/i ) ) {
 			if ( ( navigator.userAgent.match( /iphone/i ) ) || ( navigator.userAgent.match( /ipod/i ) ) )
 			   document.write( '<span id="wpcom-mobile-app-promo" style="margin-top: 10px; font-size: 13px;"><strong>Now Available!</strong> <a href="/index.php?app-download=ios">Download WordPress for iOS</a></span><br /><br />' );
-			else if ( ( navigator.userAgent.match( /android/i ) ) )
+			else if ( ( navigator.userAgent.match( /android/i ) ) && ( null == navigator.userAgent.match( /playbook/i ) && null == navigator.userAgent.match( /bb10/i ) ) )
 			   document.write( '<span id="wpcom-mobile-app-promo" style="margin-top: 10px; font-size: 13px;"><strong>Now Available!</strong> <a href="/index.php?app-download=android">Download WordPress for Android</a></span><br /><br />' );
-			else if ( ( navigator.userAgent.match( /blackberry/i ) ) )
+			else if ( ( navigator.userAgent.match( /blackberry/i ) ) || ( navigator.userAgent.match( /playbook/i ) ) || ( navigator.userAgent.match( /bb10/i ) ) )
 			   document.write( '<span id="wpcom-mobile-app-promo" style="margin-top: 10px; font-size: 13px;"><strong>Now Available!</strong> <a href="/index.php?app-download=blackberry">Download WordPress for BlackBerry</a></span><br /><br />' );
-			else if ( ( navigator.userAgent.match( /windows phone os/i ) ) )
-			   document.write( '<span id="wpcom-mobile-app-promo" style="margin-top: 10px; font-size: 13px; line-height: 13px;"><strong>Now Available!</strong> <a href="/index.php?app-download=windowsphone">Download WordPress for <br />Windows Phone</a></span><br /><br />' );
-			else if ( ( navigator.userAgent.match( /nokia/i ) ) )
-			   document.write( '<span id="wpcom-mobile-app-promo" style="margin-top: 10px; font-size: 13px;"><strong>Now Available!</strong> <a href="/index.php?app-download=nokia">Download WordPress for Nokia</a></span><br /><br />' );
 		}
 	</script>
 	<?php
@@ -254,7 +217,7 @@ function jetpack_mobile_css_settings() {
 
 	?>
 	<div class="misc-pub-section">
-		<label><?php esc_html_e( 'Mobile-compatible:' , 'jetpack'); ?></label>
+		<label><?php esc_html_e( 'Mobile-compatible:', 'jetpack' ); ?></label>
 		<span id="mobile-css-display"><?php echo $mobile_css ? __( 'Yes', 'jetpack' ) : __( 'No', 'jetpack' ); ?></span>
 		<a class="edit-mobile-css hide-if-no-js" href="#mobile-css"><?php echo esc_html_e( 'Edit', 'jetpack' ); ?></a>
 		<div id="mobile-css-select" class="hide-if-js">
@@ -302,6 +265,23 @@ function jetpack_mobile_css_settings() {
 }
 
 add_action( 'custom_css_submitbox_misc_actions', 'jetpack_mobile_css_settings' );
+
+function jetpack_mobile_customizer_controls( $wp_customize ) {
+	$wp_customize->add_setting( 'wp_mobile_custom_css' , array(
+		'default' => true,
+		'transport' => 'postMessage',
+		'type' => 'option'
+	) );
+
+	$wp_customize->add_control( 'jetpack_mobile_css_control', array(
+		'type' => 'checkbox',
+		'label' => __( 'Include this CSS in the Mobile Theme', 'jetpack' ),
+		'section' => 'jetpack_custom_css',
+		'settings' => 'wp_mobile_custom_css',
+	) );
+}
+
+add_action( 'jetpack_custom_css_customizer_controls', 'jetpack_mobile_customizer_controls' );
 
 function jetpack_mobile_save_css_settings() {
 	update_option( 'wp_mobile_custom_css', isset( $_POST['mobile_css'] ) && ! empty( $_POST['mobile_css'] ) );

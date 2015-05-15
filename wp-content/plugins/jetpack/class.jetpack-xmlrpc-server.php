@@ -30,17 +30,21 @@ class Jetpack_XMLRPC_Server {
 				'jetpack.featuresEnabled'   => array( $this, 'features_enabled' ),
 				'jetpack.getPost'           => array( $this, 'get_post' ),
 				'jetpack.getPosts'          => array( $this, 'get_posts' ),
-				'jetpack.getComment'        => array( $this, 'get_comment' ), 
+				'jetpack.getComment'        => array( $this, 'get_comment' ),
 				'jetpack.getComments'       => array( $this, 'get_comments' ),
+				'jetpack.disconnectBlog'    => array( $this, 'disconnect_blog' ),
+				'jetpack.unlinkUser'        => array( $this, 'unlink_user' ),
 			) );
 
 			if ( isset( $core_methods['metaWeblog.editPost'] ) ) {
 				$jetpack_methods['metaWeblog.newMediaObject'] = $core_methods['metaWeblog.newMediaObject'];
 				$jetpack_methods['jetpack.updateAttachmentParent'] = array( $this, 'update_attachment_parent' );
 			}
+
+			$jetpack_methods = apply_filters( 'jetpack_xmlrpc_methods', $jetpack_methods, $core_methods, $user );
 		}
 
-		return apply_filters( 'jetpack_xmlrpc_methods', $jetpack_methods, $core_methods, $user );
+		return apply_filters( 'jetpack_xmlrpc_unauthenticated_methods', $jetpack_methods, $core_methods );
 	}
 
 	/**
@@ -49,7 +53,6 @@ class Jetpack_XMLRPC_Server {
 	function bootstrap_xmlrpc_methods() {
 		return array(
 			'jetpack.verifyRegistration' => array( $this, 'verify_registration' ),
-			'jetpack.verifyAction'       => array( $this, 'verify_action' ),
 		);
 	}
 
@@ -80,24 +83,24 @@ class Jetpack_XMLRPC_Server {
 			return $this->error( new Jetpack_Error( 'verify_secret_1_malformed', sprintf( 'The required "%s" parameter is malformed.', 'secret_1' ), 400 ) );
 		}
 
-		$secrets = Jetpack::get_option( $action );
+		$secrets = Jetpack_Options::get_option( $action );
 		if ( !$secrets || is_wp_error( $secrets ) ) {
-			Jetpack::delete_option( $action );
+			Jetpack_Options::delete_option( $action );
 			return $this->error( new Jetpack_Error( 'verify_secrets_missing', 'Verification took too long', 400 ) );
 		}
 
 		@list( $secret_1, $secret_2, $secret_eol ) = explode( ':', $secrets );
 		if ( empty( $secret_1 ) || empty( $secret_2 ) || empty( $secret_eol ) || $secret_eol < time() ) {
-			Jetpack::delete_option( $action );
+			Jetpack_Options::delete_option( $action );
 			return $this->error( new Jetpack_Error( 'verify_secrets_missing', 'Verification took too long', 400 ) );
 		}
 
 		if ( $verify_secret !== $secret_1 ) {
-			Jetpack::delete_option( $action );
+			Jetpack_Options::delete_option( $action );
 			return $this->error( new Jetpack_Error( 'verify_secrets_mismatch', 'Secret mismatch', 400 ) );
 		}
 
-		Jetpack::delete_option( $action );
+		Jetpack_Options::delete_option( $action );
 
 		return $secret_2;
 	}
@@ -108,6 +111,7 @@ class Jetpack_XMLRPC_Server {
 	 * @return WP_User|IXR_Error
 	 */
 	function login() {
+		Jetpack::init()->require_jetpack_authentication();
 		$user = wp_authenticate( 'username', 'password' );
 		if ( is_wp_error( $user ) ) {
 			if ( 'authentication_failed' == $user->get_error_code() ) { // Generic error could mean most anything.
@@ -158,7 +162,7 @@ class Jetpack_XMLRPC_Server {
 	function test_connection() {
 		return JETPACK__VERSION;
 	}
-	
+
 	function test_api_user_code( $args ) {
 		$client_id = (int) $args[0];
 		$user_id   = (int) $args[1];
@@ -181,7 +185,7 @@ class Jetpack_XMLRPC_Server {
 		error_log( "VERIFY: $verify" );
 		*/
 
-		$jetpack_token = Jetpack_Data::get_access_token( 1 );
+		$jetpack_token = Jetpack_Data::get_access_token( JETPACK_MASTER_USER );
 
 		$api_user_code = get_user_meta( $user_id, "jetpack_json_api_$client_id", true );
 		if ( !$api_user_code ) {
@@ -200,6 +204,27 @@ class Jetpack_XMLRPC_Server {
 		}
 
 		return $user_id;
+	}
+
+	/**
+	* Disconnect this blog from the connected wordpress.com account
+	* @return boolean
+	*/
+	function disconnect_blog() {
+		Jetpack::log( 'disconnect' );
+		Jetpack::disconnect();
+
+		return true;
+	}
+
+	/**
+	 * Unlink a user from WordPress.com
+	 *
+	 * This will fail if called by the Master User.
+	 */
+	function unlink_user() {
+		Jetpack::log( 'unlink' );
+		return Jetpack::unlink_user();
 	}
 
 	/**
@@ -279,7 +304,7 @@ class Jetpack_XMLRPC_Server {
 
 		return $sync_data;
 	}
-	
+
 	function update_attachment_parent( $args ) {
 		$attachment_id = (int) $args[0];
 		$parent_id     = (int) $args[1];
@@ -342,10 +367,10 @@ class Jetpack_XMLRPC_Server {
 		// needed?
 		require_once ABSPATH . 'wp-admin/includes/admin.php';
 
-		require_once dirname( __FILE__ ) . '/class.json-api.php';
+		require_once JETPACK__PLUGIN_DIR . 'class.json-api.php';
 		$api = WPCOM_JSON_API::init( $method, $url, $post_body );
 		$api->token_details['user'] = $user_details;
-		require_once dirname( __FILE__ ) . '/class.json-api-endpoints.php';
+		require_once JETPACK__PLUGIN_DIR . 'class.json-api-endpoints.php';
 
 		$display_errors = ini_set( 'display_errors', 0 );
 		ob_start();

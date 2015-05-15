@@ -1,0 +1,45 @@
+body{
+    margin: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+figure{
+    margin: 0;
+    background: #eee;
+    float: left;
+    padding: .5em;
+
+}
+figcaption{
+    color: #555;
+}
+
+code{
+    background-color: #eee;
+    background-color: rgba(0,0,0,.05);
+}
+
+hr{
+    clear:both;
+    display: block;
+    float: left;
+    width: 100%;
+    margin: 1em 0;
+}
+img {
+  margin: 0;
+  max-width: 100%;
+  height: auto;
+}
+a img //ie9 fix
+{
+  border:none;
+}
+//prevent sup and sub from effecting line-heights
+sup, sub {
+   vertical-align: baseline;
+   position: relative;
+   top: -0.4em;
+}
+sub { top: 0.4em; }
+

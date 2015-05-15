@@ -35,7 +35,6 @@ class Highlander_Comments_Base {
 	protected function setup_filters() {
 		add_filter( 'comments_array',     array( $this, 'comments_array' ) );
 		add_filter( 'preprocess_comment', array( $this, 'allow_logged_in_user_to_comment_as_guest' ), 0 );
-		add_filter( 'get_avatar',         array( $this, 'get_avatar' ), 10, 4 );
 	}
 
 	/**
@@ -103,22 +102,22 @@ class Highlander_Comments_Base {
  	 */
 	function comments_array( $comments ) {
 		global $wpdb, $post;
-	
+
 		$commenter = $this->get_current_commenter();
 
 		if ( !$commenter['user_id'] )
 			return $comments;
-	
+
 		if ( !$commenter['comment_author'] )
 			return $comments;
-	
+
 		$in_moderation_comments = $wpdb->get_results( $wpdb->prepare(
 			"SELECT * FROM `$wpdb->comments` WHERE `comment_post_ID` = %d AND `user_id` = 0 AND `comment_author` = %s AND `comment_author_email` = %s AND `comment_approved` = '0' ORDER BY `comment_date_gmt` /* Highlander_Comments_Base::comments_array() */",
 			$post->ID,
 			wp_specialchars_decode( $commenter['comment_author'], ENT_QUOTES ),
 			$commenter['comment_author_email']
 		) );
-	
+
 		if ( !$in_moderation_comments )
 			return $comments;
 
@@ -181,12 +180,12 @@ class Highlander_Comments_Base {
 	/**
 	 * Allows a logged out user to leave a comment as a facebook or twitter credentialed user.
 	 * Overrides WordPress' core comment_registration option to treat these commenters as "registered" (verified) users.
-	 * 
+	 *
 	 * @since JetpackComments (1.4)
 	 * @return If no
 	 */
 	function allow_logged_out_user_to_comment_as_external() {
-		if ( !$this->is_highlander_comment_post( 'facebook', 'twitter' ) ) {
+		if ( !$this->is_highlander_comment_post( 'facebook', 'twitter', 'googleplus' ) ) {
 			return;
 		}
 
@@ -214,7 +213,7 @@ class Highlander_Comments_Base {
 		}
 
 		// Bail if this is not a guest or external service credentialed request
-		if ( !$this->is_highlander_comment_post( 'guest', 'facebook', 'twitter' ) ) {
+		if ( !$this->is_highlander_comment_post( 'guest', 'facebook', 'twitter', 'googleplus' ) ) {
 			return $comment_data;
 		}
 
@@ -234,12 +233,18 @@ class Highlander_Comments_Base {
 			}
 		}
 
+		$author_change = false;
 		foreach ( array( 'comment_author' => 'author', 'comment_author_email' => 'email', 'comment_author_url' => 'url' ) as $comment_field => $post_field ) {
+			if ( $comment_data[$comment_field] != $_POST[$post_field] && 'url' != $post_field ) {
+				$author_change = true;
+			}
 			$comment_data[$comment_field] = $_POST[$post_field];
 		}
 
-		// Mark as guest comment
-		$comment_data['user_id'] = $comment_data['user_ID'] = 0;
+		// Mark as guest comment if name or email were changed
+		if ( $author_change ) {
+			$comment_data['user_id'] = $comment_data['user_ID'] = 0;
+		}
 
 		return $comment_data;
 	}
@@ -257,51 +262,26 @@ class Highlander_Comments_Base {
 		if ( empty( $comment ) || is_wp_error( $comment ) ) {
 			return;
 		}
-	
+
 		$id_source = $this->is_highlander_comment_post();
 		if ( empty( $id_source ) ) {
 			return;
 		}
-	
+
 		// Set comment author cookies
 		if ( ( 'wordpress' != $id_source ) && is_user_logged_in() ) {
+			/**
+			 * Changes the duration of a cookie.
+			 *
+			 * @since 1.4.0
+			 *
+			 * @param int comment_cookie_lifetime Cookie lifteime, default is 30000000 seconds (just over a year).
+			 */
 			$comment_cookie_lifetime = apply_filters( 'comment_cookie_lifetime', 30000000 );
 			setcookie( 'comment_author_'       . COOKIEHASH, $comment->comment_author, time() + $comment_cookie_lifetime,              COOKIEPATH, COOKIE_DOMAIN );
 			setcookie( 'comment_author_email_' . COOKIEHASH, $comment->comment_author_email, time() + $comment_cookie_lifetime,        COOKIEPATH, COOKIE_DOMAIN );
 			setcookie( 'comment_author_url_'   . COOKIEHASH, esc_url($comment->comment_author_url), time() + $comment_cookie_lifetime, COOKIEPATH, COOKIE_DOMAIN );
 		}
-	}
-
-	/**
-	 * Get the comment avatar from Gravatar, Twitter, or Facebook
-	 *
-	 * @since JetpackComments (1.4)
-	 * @param string $avatar Current avatar URL
-	 * @param string $comment Comment for the avatar
-	 * @param int $size Size of the avatar
-	 * @param string $default Not used
-	 * @return string New avatar
-	 */
-	public function get_avatar( $avatar, $comment, $size, $default ) {
-		if ( ! isset( $comment->comment_post_ID ) || ! isset( $comment->comment_ID ) ) {
-			// it's not a comment - bail
-			return $avatar;
-		}
-	
-		if ( false === strpos( $comment->comment_author_url, '/www.facebook.com/' ) && false === strpos( $comment->comment_author_url, '/twitter.com/' ) ) {
-			// It's neither FB nor Twitter - bail
-			return $avatar;
-		}
-	
-		// It's a FB or Twitter avatar
-		$foreign_avatar = get_comment_meta( $comment->comment_ID, 'hc_avatar', true );
-		if ( empty( $foreign_avatar ) ) {
-			// Can't find the avatar details - bail
-			return $avatar;
-		}
-	
-		// Return the FB or Twitter avatar
-		return preg_replace( '#src=([\'"])[^\'"]+\\1#', 'src=\\1' . esc_url( $this->photon_avatar( $foreign_avatar, $size ) ) . '\\1', $avatar );
 	}
 
 	/**

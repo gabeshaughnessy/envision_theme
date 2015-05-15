@@ -19,7 +19,7 @@ global $meta_boxes;
 require_once('supplier_creator.php');
 
 //Custom metabox on pages and posts too 
-require_once('page_metaboxes.php');
+//require_once('page_metaboxes.php');
 
 //Set up taxonomies to relate everything
 require_once('env_taxonomies.php');

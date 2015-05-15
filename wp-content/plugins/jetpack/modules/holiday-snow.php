@@ -5,6 +5,8 @@
  * Adds falling snow to a blog starting December 1 and ending January 3.
  * Not a module that is activated/deactivated
  * First Introduced: 2.0.3 ??
+ * Requires Connection: No
+ * Auto Activate: Yes
  */
 
 class Jetpack_Holiday_Snow_Settings {
@@ -64,10 +66,9 @@ function jetpack_is_holiday_snow_season() {
 	$first_snow_day = mktime( 0, 0, 0, 12, 1 );
 	$last_snow_day  = mktime( 0, 0, 0, 1, 4 );
 
-	if ( $today >= $first_snow_day || $today < $last_snow_day )
-		return true;
-	else
-		return false;
+	$snow = ( $today >= $first_snow_day || $today < $last_snow_day );
+
+	return apply_filters( 'jetpack_is_holiday_snow_season', $snow );
 }
 
 jetpack_maybe_holiday_snow();

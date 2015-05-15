@@ -1,8 +1,39 @@
-<div class="wrap wlcms_wrap">
+<div class="wrap wlcms_wrap" style="width:auto;">
 <h2>White Label CMS Settings</h2>
  
-<div class="wlcms_opts">
- 
+<div class="wlcms_opts" style="position:relative;">
+	<div id="wlcms-sidebar" style="position: absolute; top: 0; right: 0; background-color:#FFFFFF; width: 250px; border: 1px solid #ccc; padding: 20px;">
+		<img src="<?php echo plugins_url('images/better-ebooks-ad.png', dirname(__FILE__)); ?>" alt="Better WordPress For Clients" title="Better WordPress For Clients" />
+		<form method="post" accept-charset="UTF-8" onsubmit="return quickValidate()"  action="https://sk199.infusionsoft.com/app/form/process/9168d81810d0fec71af66450f00861f4" target="_blank" name="Better WP ClickFunnels">
+		<div style="display: none;">
+			<input name="inf_form_xid" type="hidden" value="9168d81810d0fec71af66450f00861f4" />
+			<input name="inf_form_name" type="hidden" value="Better WP ClickFunnels" />
+			<input name="infusionsoft_version" type="hidden" value="1.41.0.37" />
+			<input name="inf_field_LeadSoruceId" type="hidden" value="148" />
+			<input id="_GaSource" name="inf_custom_GaSource" type="hidden" value="pluginad" />
+			<input id="_GaMedium" name="inf_custom_GaMedium" type="hidden" value="plugin" />
+			<input id="_GaCampaign" name="inf_custom_GaCampaign" type="hidden" value="wclms" />
+		</div>
+		<table style="text-align:left;margin-left: 20px;">
+		<tr>
+		<td><strong>Name: </strong><input id="sub_name" name="inf_field_FirstName" type="text" name="name" class="text"  tabindex="500" value="" style="width: 170px;"/></td>
+		</tr>
+		<tr>
+		<td><strong>Email: </strong>&nbsp;<input class="text" id="sub_email" type="text" name="inf_field_Email" tabindex="501"  value="" style="width: 170px;" /></td>
+		</tr>
+		<tr>
+		<td style="text-align:center"><span class="submit"><input name="submit" type="image" alt="submit" tabindex="502" src="<?php echo plugins_url('images/download-button.png', dirname(__FILE__)); ?>" width="157" height="40" style="background: none; border: 0;" /></span></td>
+		</tr>
+		<tr>
+		<td style="padding-top: 20px;text-align:center;">
+		<a title="Privacy Policy" href="http://www.getresponse.com/permission-seal?lang=en" target="_blank"><img src="<?php echo plugins_url('images/privacy.png', dirname(__FILE__)); ?>"  alt="" title="" /></a>
+		</td>
+		</tr>
+		</table>
+		</form>	
+	</div>
+	<div id="wlcms-container" style="margin-right: 320px;">
+			
 <form method="post" enctype="multipart/form-data" <?php echo admin_url( 'options-general.php?page=wlcms-plugin.php' );?> >
 <?php wp_nonce_field( 'wlcms-update_settings' ); ?>
 <input type="hidden" name="wlcms_" value="<?php echo WLCMS; ?>" />
@@ -78,7 +109,7 @@ break;
  
 case "title":
 ?>
-<p><strong>For a detailed explanation of the plugin please refer to the official <a href="http://www.videousermanuals.com/white-label-cms/?utm_source=wlcmsplugin&amp;utm_medium=wpplugin&amp;utm_campaign=wlcmshelppage" target="_blank">help page</a>.</strong></p>
+<p><strong>For a detailed explanation of the plugin please refer to the official <a href="http://www.videousermanuals.com/white-label-cms/?utm_campaign=wlcms&utm_medium=plugin&utm_source=helplink" target="_blank">help page</a>.</strong></p>
 
 <p><em>Please Note:</em> For any images, if you just put the file name, the image will come from the images directory of your theme/child theme. Use the full url if the image comes from another site. If you upload a image, make sure you click "Use This Image"</p> 
   
@@ -496,7 +527,7 @@ $i++;
 ?>
 
 <div class="wlcms_section">
-<div class="wlcms_title"><h3><img src="<?php echo plugins_url('images/trans.png', dirname(__FILE__)); ?>" class="inactive" alt=""><?php echo $value['name']; ?></h3><span class="submit"><input name="save<?php echo $i; ?>" type="submit" value="Save changes" />
+<div class="wlcms_title"><h3><img src="<?php echo plugins_url('images/trans.png', dirname(__FILE__)); ?>" class="inactive" alt=""><?php echo $value['name']; ?></h3><span class="submit"><input name="save<?php echo $i; ?>" type="submit" style="font-size:10px" value="Save changes" />
 </span><div class="clearfix"></div></div>
 <div class="wlcms_options" style="display: none;">
 
@@ -534,6 +565,7 @@ case "subsectionvars":
 <form method="post" action="<?php echo admin_url( 'options-general.php?page=wlcms-plugin.php&amp;action=import' );?>" enctype="multipart/form-data" id="importform" style="display:none">
 	Import File: <input type="file" name="wlcms_import" />
 	<input type="submit" value="Import" />
+	<?php echo wp_nonce_field( 'wlcms_import' ); ?>
 </form>
 
 <form method="get" action="<?php echo admin_url( 'options-general.php?page=wlcms-plugin.php' );?>" id="exportopts" style="display:none">
@@ -567,33 +599,7 @@ if (!get_option('wpm_o_user_id')):
 
 
 ?>
-<br />
-<img src="<?php echo plugins_url('images/wlcms-plugin-advert.png', dirname(__FILE__)); ?>">
 
-<form method="post" style="width:720px;" onsubmit="return quickValidate()"  action="http://www.aweber.com/scripts/addlead.pl" target="_blank" >
-<div style="display: none;">
-<input type="hidden" name="meta_web_form_id" value="720447695" />
-<input type="hidden" name="meta_split_id" value="" />
-<input type="hidden" name="listname" value="vumpublic2" />
-<input type="hidden" name="redirect" value="http://www.aweber.com/thankyou-coi.htm?m=video" id="redirect_892b1b4c503ba1b3c51e7aec7f2e5036" />
-<input type="hidden" name="meta_adtracking" value="wlcms-plugin" />
-<input type="hidden" name="meta_message" value="1" />
-<input type="hidden" name="meta_required" value="name,email" />
-<input type="hidden" name="meta_tooltip" value="" />
-</div>
-<table style="text-align:center;margin-left: 20px;">
-<tr>
-<td><label class="previewLabel" for="awf_field-37978044"><strong>Name: </strong></label><input id="sub_name" type="text" name="name" class="text"  tabindex="500" value="<?php echo $current_user->user_firstname. ' '. $current_user->user_lastname; ?>" /></td>
-<td><label class="previewLabel" for="awf_field-37978045"><strong>Email: </strong></label> <input class="text" id="sub_email" type="text" name="email" tabindex="501"  value="<?php echo $current_user->user_email;?>" /></td>
-<td><span class="submit"><input name="submit" type="image" alt="submit" tabindex="502" src="<?php echo plugins_url('images/download-button.png', dirname(__FILE__)); ?>" width="157" height="40" style="background: none; border: 0;" /></span></td>
-</tr>
-<tr>
-<td colspan="3" style="padding-top: 20px;">
-<a title="Privacy Policy" href="http://www.aweber.com/permission.htm" target="_blank"><img src="<?php echo plugins_url('images/privacy.png', dirname(__FILE__)); ?>"  alt="" title="" /></a>
-</td>
-</tr>
-</table>
-</form>
 <?php
 endif;
 ?>

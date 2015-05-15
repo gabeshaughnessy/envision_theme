@@ -39,7 +39,7 @@ abstract class Publicize_Base {
 	 * All users with this cap can unglobalize all other global connections, and globalize any of their own
 	 * Globalized connections cannot be unselected by users without this capability when publishing
 	 */
-	const GLOBAL_CAP = 'edit_others_posts';
+	var $GLOBAL_CAP = 'edit_others_posts';
 
 	/**
 	* Sets up the basics of Publicize
@@ -61,11 +61,15 @@ abstract class Publicize_Base {
 			'url',
 		) );
 
+		$this->GLOBAL_CAP = apply_filters( 'jetpack_publicize_global_connections_cap', $this->GLOBAL_CAP );
 
 		// stage 1 and 2 of 3-stage Publicize. Flag for Publicize on creation, save meta,
 		// then check meta and publicze based on that. stage 3 implemented on wpcom
 		add_action( 'transition_post_status', array( $this, 'flag_post_for_publicize' ), 10, 3 );
 		add_action( 'save_post', array( &$this, 'save_meta' ), 20, 2 );
+
+		// Connection test callback
+		add_action( 'wp_ajax_test_publicize_conns', array( $this, 'test_publicize_conns' ) );
 	}
 
 	/**
@@ -79,6 +83,8 @@ abstract class Publicize_Base {
 	abstract function get_connections( $service, $_blog_id = false, $_user_id = false );
 	abstract function get_connection( $service, $id, $_blog_id = false, $_user_id = false );
 	abstract function flag_post_for_publicize( $new_status, $old_status, $post );
+	abstract function test_connection( $service_name, $connection );
+	abstract function disconnect( $service, $connection_id, $_blog_id = false, $_user_id = false, $force_delete = false );
 
 	/**
 	* Shared Functions
@@ -91,17 +97,22 @@ abstract class Publicize_Base {
 		$cmeta = $this->get_connection_meta( $c );
 
 		if ( isset( $cmeta['connection_data']['meta']['link'] ) ) {
+			if ( 'facebook' == $service_name && 0 === strpos( parse_url( $cmeta['connection_data']['meta']['link'], PHP_URL_PATH ), '/app_scoped_user_id/' ) ) {
+				// App-scoped Facebook user IDs are not usable profile links
+				return false;
+			}
+
 			return $cmeta['connection_data']['meta']['link'];
 		} elseif ( 'facebook' == $service_name && isset( $cmeta['connection_data']['meta']['facebook_page'] ) ) {
-			return 'http://facebook.com/' . $cmeta['connection_data']['meta']['facebook_page'];
-		} elseif ( 'facebook' == $service_name ) {
-			return 'http://www.facebook.com/' . $cmeta['external_id'];
+			return 'https://www.facebook.com/' . $cmeta['connection_data']['meta']['facebook_page'];
 		} elseif ( 'tumblr' == $service_name && isset( $cmeta['connection_data']['meta']['tumblr_base_hostname'] ) ) {
 			 return 'http://' . $cmeta['connection_data']['meta']['tumblr_base_hostname'];
 		} elseif ( 'twitter' == $service_name ) {
-			return 'http://twitter.com/' . substr( $cmeta['external_display'], 1 ); // Has a leading '@'
-		} else if ( 'yahoo' == $service_name ) {
-			return 'http://profile.yahoo.com/' . $cmeta['external_id'];
+			return 'https://twitter.com/' . substr( $cmeta['external_display'], 1 ); // Has a leading '@'
+		} elseif ( 'google_plus' == $service_name && isset( $cmeta['connection_data']['meta']['google_plus_page'] ) ) {
+			return 'https://plus.google.com/' . $cmeta['connection_data']['meta']['google_plus_page'];
+		} elseif ( 'google_plus' == $service_name ) {
+			return 'https://plus.google.com/' . $cmeta['external_id'];
 		} else if ( 'linkedin' == $service_name ) {
 			if ( !isset( $cmeta['connection_data']['meta']['profile_url'] ) ) {
 				return false;
@@ -109,11 +120,15 @@ abstract class Publicize_Base {
 
 			$profile_url_query = parse_url( $cmeta['connection_data']['meta']['profile_url'], PHP_URL_QUERY );
 			wp_parse_str( $profile_url_query, $profile_url_query_args );
-			if ( !isset( $profile_url_query_args['key'] ) ) {
+			if ( isset( $profile_url_query_args['key'] ) ) {
+				$id = $profile_url_query_args['key'];
+			} elseif ( isset( $profile_url_query_args['id'] ) ) {
+				$id = $profile_url_query_args['id'];
+			} else {
 				return false;
 			}
 
-			return esc_url_raw( add_query_arg( 'id', urlencode( $profile_url_query_args['key'] ), 'http://www.linkedin.com/profile/view' ) );
+			return esc_url_raw( add_query_arg( 'id', urlencode( $id ), 'http://www.linkedin.com/profile/view' ) );
 		} else {
 			return false; // no fallback. we just won't link it
 		}
@@ -139,13 +154,13 @@ abstract class Publicize_Base {
 		}
 	}
 
-	function get_service_label( $service_name ) {
+	public static function get_service_label( $service_name ) {
 		switch ( $service_name ) {
-			case 'yahoo':
-				return 'Yahoo!';
-				break;
 			case 'linkedin':
 				return 'LinkedIn';
+				break;
+			case 'google_plus':
+				return  'Google+';
 				break;
 			case 'twitter':
 			case 'facebook':
@@ -211,8 +226,7 @@ abstract class Publicize_Base {
 		$cron_user = null;
 		$submit_post = true;
 
-		// don't do anything if its not actually a post
-		if ( 'post' !== $post->post_type )
+		if ( ! $this->post_type_is_publicizeable( $post->post_type ) )
 			return;
 
 		// Don't Publicize during certain contexts:
@@ -285,7 +299,13 @@ abstract class Publicize_Base {
 		 */
 		foreach ( (array) $this->get_services( 'connected' ) as $service_name => $connections ) {
 			foreach ( $connections as $connection ) {
-				if ( false == apply_filters( 'wpas_submit_post?', $submit_post, $post_id, $service_name ) ) {
+				$connection_data = '';
+				if ( method_exists( $connection, 'get_meta' ) )
+					$connection_data = $connection->get_meta( 'connection_data' );
+				elseif ( ! empty( $connection['connection_data'] ) )
+					$connection_data = $connection['connection_data'];
+
+				if ( false == apply_filters( 'wpas_submit_post?', $submit_post, $post_id, $service_name, $connection_data ) ) {
 					delete_post_meta( $post_id, $this->PENDING );
 					continue;
 				}
@@ -297,6 +317,9 @@ abstract class Publicize_Base {
 
 				// This was a wp-admin request, so we need to check the state of checkboxes
 				if ( $from_web ) {
+					// delete stray service-based post meta
+					delete_post_meta( $post_id, $this->POST_SKIP . $service_name );
+	
 					// We *unchecked* this stream from the admin page, or it's set to readonly, or it's a new addition
 					if ( empty( $_POST[$this->ADMIN_PAGE]['submit'][$unique_id] ) ) {
 						// Also make sure that the service-specific input isn't there.
@@ -306,12 +329,19 @@ abstract class Publicize_Base {
 							// Nothing seems to be checked, so we're going to mark this one to be skipped
 							update_post_meta( $post_id, $this->POST_SKIP . $unique_id, 1 );
 							continue;
+						} else {
+							// clean up any stray post meta
+							delete_post_meta( $post_id, $this->POST_SKIP . $unique_id );
 						}
 					} else {
 						// The checkbox for this connection is explicitly checked -- make sure we DON'T skip it
 						delete_post_meta( $post_id, $this->POST_SKIP . $unique_id );
 					}
 				}
+
+				// Users may hook in here and do anything else they need to after meta is written,
+				// and before the post is processed for Publicize.
+				do_action( 'publicize_save_meta', $submit_post, $post_id, $service_name, $connection );
 			}
 		}
 
@@ -320,5 +350,68 @@ abstract class Publicize_Base {
 		}
 
 		// Next up will be ::publicize_post()
+	}
+
+	/**
+	 * Is a given post type Publicize-able?
+	 *
+	 * Not every CPT lends itself to Publicize-ation.  Allow CPTs to register by adding their CPT via
+	 * the publicize_post_types array filter.
+	 *
+	 * @param string $post_type The post type to check.
+	 * $return bool True if the post type can be Publicized.
+	 */
+	function post_type_is_publicizeable( $post_type ) {
+		if ( 'post' == $post_type )
+			return true;
+
+		return post_type_supports( $post_type, 'publicize' );
+	}
+
+	/**
+	 * Runs tests on all the connections and returns the results to the caller
+	 */
+	function test_publicize_conns() {
+		$test_results = array();
+
+		foreach ( (array) $this->get_services( 'connected' ) as $service_name => $connections ) {
+			foreach ( $connections as $connection ) {
+
+				$id = $this->get_connection_id( $connection );
+
+				$connection_test_passed = true;
+				$connection_test_message = __( 'This connection is working correctly.' , 'jetpack' );
+				$user_can_refresh = false;
+				$refresh_text = '';
+				$refresh_url = '';
+
+				$connection_test_result = true;
+				if ( method_exists( $this, 'test_connection' ) ) {
+					$connection_test_result = $this->test_connection( $service_name, $connection );
+				}
+
+				if ( is_wp_error( $connection_test_result ) ) {
+					$connection_test_passed = false;
+					$connection_test_message = $connection_test_result->get_error_message();
+					$error_data = $connection_test_result->get_error_data();
+
+					$user_can_refresh = $error_data['user_can_refresh'];
+					$refresh_text = $error_data['refresh_text'];
+					$refresh_url = $error_data['refresh_url'];
+				}
+
+				$test_results[] = array(
+					'connectionID'          => $id,
+					'serviceName'           => $service_name,
+					'connectionTestPassed'  => $connection_test_passed,
+					'connectionTestMessage' => esc_attr( $connection_test_message ),
+					'userCanRefresh'        => $user_can_refresh,
+					'refreshText'           => esc_attr( $refresh_text ),
+					'refreshURL'            => $refresh_url
+				);
+			}
+		}
+
+		wp_send_json_success( $test_results );
 	}
 }
