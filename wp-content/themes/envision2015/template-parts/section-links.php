@@ -27,10 +27,10 @@
 							</p>
 						</a>
 					</li>
-				<?
+				<?php
 				endwhile;
 				endif;
-			}?>
+			} ?>
 		</ul>
 	</div>
 </div>
