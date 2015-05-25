@@ -1,0 +1,81 @@
+.social-profile-banner{
+	float:left;
+	width: 100%;
+	margin-top: 3em;
+
+	text-align: center;
+	display: block;
+	background: $gray;
+	padding: 2em;
+	@media screen and (max-width: $phone-break){
+		padding: 1em 1em;
+	}
+	margin-bottom: 1.5em;
+	.profile-card{
+		 display: table;
+		 width: 35%;
+		 margin-left: 10%;
+		 float: left;
+		 padding: 1em;
+		 background-color: $gray;
+		 @include boxShadow(0, 1px, 1px, 0, rgba(0,0,0,0));
+		 @include transition(all .3s);
+		 &:hover{
+		 	background-color: #fff;
+		 	@include boxShadow(0, 1px, 1px, 0, rgba(0,0,0,.2));
+		 }
+		 &+ .profile-card{
+				margin-left: 10%;
+			}
+		 @media screen and (max-width: $medium-break){
+			width: 90%;
+			margin-top: 2em;
+			margin-left: 0;
+			&+ .profile-card{
+				margin-bottom: 2em;
+				margin-left: 0;
+			}
+		 }
+		 .profile-icon{
+		 	width: 90%;
+		 	display: table-cell;
+			text-align: right;
+			vertical-align: middle;
+			padding-right: 1em;
+			&.pinterest{
+				width: 13%;
+			}
+			@media screen and (max-width: $medium-break){
+				display: block;
+				width: 70%;
+				padding: 0 20%;
+				margin: 0 auto;
+				text-align: center;
+				&.pinterest{
+					width: 54%
+				}
+			 }
+
+		 }
+		 .profile-details{
+		 	width: 65%;
+		 	display: table-cell;
+			text-align: left;
+			vertical-align: middle;
+			line-height:1;
+			h5{
+				color: $darkest-gray;
+			}
+			.profile-url{
+				color: $medium-gray;
+			}
+			@media screen and (max-width: $medium-break){
+				display: block;
+				text-align: center;
+					width: 100%;
+					padding: 1em 10%;
+
+			 }
+		}
+	}
+}

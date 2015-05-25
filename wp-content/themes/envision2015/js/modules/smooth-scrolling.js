@@ -5,7 +5,7 @@ jQuery(document).ready(function($){
         if(jQuery(this).attr('href').indexOf("tab-") != -1){
             //tab-links
             if(jQuery('.tab-controls-wrapper').length){
-                var scrollTo = parseInt(jQuery('.tab-controls-wrapper').offset().top, 10) - 85;
+                var scrollTo = parseInt(jQuery('.tab-controls-wrapper').offset().top, 10) + 100;
             }
             if(typeof scrollTo !== 'undefined'){
                 $('html,body').animate({
@@ -18,7 +18,7 @@ jQuery(document).ready(function($){
               target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
               if (target.length) {
                 $('html,body').animate({
-                  scrollTop: parseInt(target.offset().top - 85, 10)
+                  scrollTop: parseInt(target.offset().top + 100, 10)
                 }, scrollSpeed);
 
                 return false;

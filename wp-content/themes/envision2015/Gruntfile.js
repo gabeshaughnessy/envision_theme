@@ -45,7 +45,8 @@ module.exports = function(grunt) {
       },
       src: [
         'js/modernizr.js',
-        'js/smooth-scrolling.js',
+        'js/modules/smooth-scrolling.js',
+        'js/modules/nav.js'
 
       ],
       dest: 'js/app.js',
@@ -111,7 +112,7 @@ module.exports = function(grunt) {
     },
     grunt: { files: ['Gruntfile.js'] },
     scripts: {
-      files: ['js/app.js'],
+      files: ['js/modules/*.js'],
       tasks: ['concat']
     },
     compress: {

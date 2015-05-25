@@ -20,5 +20,6 @@ if (stristr($host, 'local') !== FALSE){
 require_once('functions/functions-acf.php');
 
 //enqueue styles and scripts
+require_once('functions/functions-enqueue.php');
 
 ?>

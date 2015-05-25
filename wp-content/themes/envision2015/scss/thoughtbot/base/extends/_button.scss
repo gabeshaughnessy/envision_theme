@@ -11,6 +11,7 @@
   text-decoration: none;
   text-align: center;
   padding: $gutter 4em;
+  @include transition(all .3s);
   @media screen and (max-width: 768px){
     padding: $gutter 1em;
   }

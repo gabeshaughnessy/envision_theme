@@ -1,0 +1,133 @@
+footer{
+	position: relative;
+	padding-bottom: 1.5em;
+	display: block;
+	float: left;
+	width: 100%;
+	border-bottom: 4px solid $dark-blue;
+	.triangle{
+		position: absolute;
+		right: 0;
+		top: 0;
+		background-image: url('../images/graphics/white-triangle.svg');
+	    &.medium-blue{
+	    	background-image: url('../images/graphics/medium-blue-triangle.svg');
+	    	.contents{
+	    		h2{
+	    			color: white;
+	    		}
+	    		.subtitle{
+	    			color: $gray;
+	    		}
+	    	}
+
+	    }
+	    &.dark-blue{
+	    	background-image: url('../images/graphics/dark-blue-triangle.svg');
+	    }
+	    background-size: contain;
+	    background-repeat: no-repeat;	
+	    background-position-y: top;
+	    background-position-x: -10px;
+	    height: 35%;
+	    @media screen and (max-width: $tablet-break){
+	    	height: 40%;
+	    	
+	    }
+	    @media screen and (max-width: $phone-break){
+	    	height: 50%;
+	    }
+	}
+	.copyright{
+		margin-left: .75em;
+		line-height: 4;
+		float: left;
+		@media screen and (max-width: $tablet-break){
+	    	float: right;
+	    	margin-right: .75em;
+	    	line-height:3;
+	    	
+	    }
+	    @media screen and (max-width: $phone-break){
+	    	font-size: 12px;
+	    	line-height: 2;
+	    	float: left;
+	    	text-align: left;
+	    	margin-left: .75em;
+
+	    }
+
+	}
+	.credit{
+		float: right;
+		margin-right: .75em;
+		line-height: 4;
+		@media screen and (max-width: $tablet-break){
+
+	    	line-height:3;
+	    	
+	    }
+	    @media screen and (max-width: $phone-break){
+
+	    	line-height: 2;
+	    	float: left;
+	    	text-align: left;
+	    	margin-left: .75em;
+
+	    }
+		a{
+			color: $dark-blue;
+			font-family: $header-font-family;
+		}
+	}
+
+	.site-logo{
+		    display: block;
+		    width: 100%;
+		    height: 100%;
+		    background-image: url('../images/graphics/dark-blue-triangle.svg');
+		    background-size: contain;
+		    background-repeat: no-repeat;	
+		    background-position-y: -10px;
+		    background-position-x: 101%;
+		    padding-bottom: 25%;		
+
+			a.logo{
+				display: block;
+				min-height: 200px;
+				max-height: 200px;
+				width: 22%;
+				@media screen and (max-width: $tablet-break){
+			    	width: 35%;
+			    	min-height: 100px;
+					max-height: 100px;
+			    	
+			    }
+			    @media screen and (max-width: $phone-break){
+			    	width: 45%;
+			    	min-height: 60px;
+					max-height: 60px;
+			    	
+	    }
+
+				background-image: url('../images/logo/logo.svg');
+				background-size: 100%;
+				background-repeat: no-repeat;
+				margin: 10px;
+				margin-top: 2%;
+				text-indent: -9000%;
+
+				&.right{
+					float: right;
+					margin-right: .75em;
+
+
+				}
+				&.left{
+					float: left;
+					margin-left: .75em;
+			
+				}
+			}
+		}
+}

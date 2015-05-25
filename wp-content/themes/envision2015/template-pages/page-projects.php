@@ -22,9 +22,11 @@ get_header();
 				//TAGS - suppliers
 				//PERMALINK
 	//NEXT PREV LINKS
-
+get_template_part('template-parts/hero');
+get_template_part('template-parts/lead');
+get_template_part('template-parts/post-grid');
 get_template_part('template-parts/contact-banner');
-	
+
 get_footer();
 
 ?>

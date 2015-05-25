@@ -1,0 +1,52 @@
+{
+    "key": "group_55636a873faa4",
+    "title": "Portfolio Grid",
+    "fields": [
+        {
+            "key": "field_55636a8f8210c",
+            "label": "Portfolio Posts",
+            "name": "portfolio_posts",
+            "prefix": "",
+            "type": "relationship",
+            "instructions": "Chooses posts to display in the portfolio. The first six posts will appear on the home page of the site.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "post"
+            ],
+            "taxonomy": [
+                "category:portfolio"
+            ],
+            "filters": [
+                "search"
+            ],
+            "elements": [
+                "featured_image"
+            ],
+            "min": 1,
+            "max": "",
+            "return_format": "object"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "template-pages\/page-projects.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "modified": 1432578820
+}

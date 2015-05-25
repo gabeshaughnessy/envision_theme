@@ -1,0 +1,111 @@
+.pre-hero{
+	background-image: url('../images/graphics/white-triangle.svg');
+	background-size: contain;
+	background-repeat: no-repeat;	
+	background-position-y: -1px;
+	background-position-x: 101%;
+	position: absolute;
+	display: block;
+	padding-left: .75em;
+	z-index: 2;
+	width: 100%;
+	height: 50%;
+	@media screen and (max-width: $tablet-break){
+		height: 45%;
+	}
+	@media screen and (max-width: $phone-break){
+		height: 40%;
+	}
+	&.medium-blue{
+		background-image: url('../images/graphics/medium-blue-triangle.svg');
+	}
+	&.dark-blue{
+		background-image: url('../images/graphics/dark-blue-triangle.svg');
+	}
+
+}
+.hero-area{
+	position: relative;
+	width: 100%;
+	&.mid-page{
+	
+	}
+
+	.title-area{
+		position: absolute;
+		bottom: 0;
+		z-index: 2;
+		display: block;
+	    width: 100%;
+	    height: 100%;
+	    padding-left: .75em;
+	    margin-bottom: -2px;
+	    background-image: url('../images/graphics/white-bottom-triangle.svg');
+	    &.medium-blue{
+	    	background-image: url('../images/graphics/medium-blue-bottom-triangle.svg');
+	    	.contents{
+	    		h2{
+	    			color: white;
+	    		}
+	    		.subtitle{
+	    			color: $gray;
+	    		}
+	    	}
+
+	    }
+	    &.dark-blue{
+	    	background-image: url('../images/graphics/dark-blue-bottom-triangle.svg');
+	    	.contents{
+	    		h2{
+	    			color: white;
+	    		}
+	    		.subtitle{
+	    			color: $gray;
+	    		}
+	    	}
+
+	    }
+	    background-size: contain;
+	    background-repeat: no-repeat;	
+	    background-position-y: bottom;
+	    background-position-x: -10px;
+	    height: 45%;
+	    @media screen and (max-width: $tablet-break){
+	    	height: 60%;
+	    	font-size: .9em;
+	    }
+	    @media screen and (max-width: $phone-break){
+	    	height: 75%;
+	    	font-size: .8em;
+	    }
+	    .contents{
+	    	position: absolute;
+	    	bottom: 0;
+	    	max-width: 50%;
+
+	    	@media screen and (orientation: portrait){
+
+	    	
+	    		max-width: 45%;
+	    	}
+	    	@media screen and (max-width:$medium-break){
+	    		
+	    		max-width: 45%;
+	    	}
+
+	    }
+	}
+	.hero-bg{
+		position:relative;
+		z-index: 1;
+		width: 100%;
+		height: 0;
+		padding-bottom: 66%;
+		display: block;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+
+
+	}
+}
