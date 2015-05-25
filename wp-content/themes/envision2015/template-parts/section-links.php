@@ -1,5 +1,4 @@
 <?php global $post, $page_query; 
-//error_log(print_r($page_query, true));
 ?>
 
 <div class="outer container">
@@ -12,7 +11,7 @@
 				?>
 					<li class="section-link">
 						<a href="#<?php echo $page->query['pagename']; ?>">
-							<?php if (has_post_thumbnail( $post->ID ) ): ?>
+							<?php if(has_post_thumbnail( $post->ID)) : ?>
 								<?php $bg_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' ); ?>
 								<div class="link-image" style="background-image:url('<?php echo $bg_image[0]; ?>');" ></div>
 							<?php endif; ?>
