@@ -56,7 +56,7 @@ class Jetpack_Signature {
 			}
 		}
 
-		$method = isset( $override['method'] ) ? $override['method'] : $_SERVER['REQUEST_METHOD']; 
+		$method = isset( $override['method'] ) ? $override['method'] : $_SERVER['REQUEST_METHOD'];
 		return $this->sign_request( $a['token'], $a['timestamp'], $a['nonce'], $a['body-hash'], $method, $url, $body, true );
 	}
 
@@ -99,7 +99,7 @@ class Jetpack_Signature {
 				return new Jetpack_Error( 'invalid_body_hash', 'The body hash does not match.' );
 			}
 		} else {
-			if ( $verify_body_hash && jetpack_sha1_base64( $body ) != $body_hash ) {
+			if ( $verify_body_hash && jetpack_sha1_base64( $body ) !== $body_hash ) {
 				return new Jetpack_Error( 'invalid_body_hash', 'The body hash does not match.' );
 			}
 		}
@@ -121,7 +121,7 @@ class Jetpack_Signature {
 			}
 		}
 
-		if ( !ctype_digit( $timestamp ) || 10 < strlen( $timestamp ) ) { // If Jetpack is around in 275 years, you can blame mdawaffe for the bug.
+		if ( !ctype_digit( "$timestamp" ) || 10 < strlen( $timestamp ) ) { // If Jetpack is around in 275 years, you can blame mdawaffe for the bug.
 			return new Jetpack_Error( 'invalid_signature', sprintf( 'The required "%s" parameter is malformed.', 'timestamp' ) );
 		}
 

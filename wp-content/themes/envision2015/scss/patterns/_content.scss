@@ -1,0 +1,18 @@
+.content-row {
+	display: block;
+	float: left;
+	width: 100%;
+
+	&+ .content-row{
+		margin-top: 3em;
+	}
+	&:last-child{
+		margin-bottom: 3em;
+	}
+
+	
+}
+
+.page-content{
+	padding: 3em 0;
+}

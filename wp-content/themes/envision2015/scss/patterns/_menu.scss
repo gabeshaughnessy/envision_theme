@@ -1,0 +1,174 @@
+#content{
+	&.blur{
+		
+		@include transition(blur .3s);
+
+		-webkit-filter: blur(2px); -moz-filter: blur(2px); -o-filter: blur(2px); -ms-filter: blur(2px); filter: blur(2px);
+
+
+	}
+}
+#primary.nav{
+	width: 100%;
+	.menu-icon-wrapper{
+		display: none;
+		cursor: pointer;
+		opacity: 1;
+		font-size:1.2em;
+		@media screen and (max-width:$phone-break){
+			font-size: 1em;
+		}
+		@include transition(opacity .2s);
+		&:hover{
+			opacity:.8;
+		}
+		.menu-icon{
+			display: inline-block;
+			cursor: pointer;
+			height: 1.35em;
+			width: 1.35em;
+			background-image: url('../images/icons/menu-icon.svg');
+			background-position: center;
+			background-size: contain;
+			background-repeat: no-repeat;
+			margin: .2em 0 .75em .75em;
+			vertical-align: middle;
+			line-height: 2;
+		}
+		.menu-text{
+			text-transform: uppercase;
+			cursor: pointer;
+			color: #fff;
+			font-size: 1.5em;
+			font-family: $bold-font-family;
+			text-shadow: 0px 1px 1px rgba(0,0,0,0.50);
+		}
+		@media screen and (max-width:$medium-break){
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	}
+	.menu-bg{
+		height: 0;
+		position: fixed;
+		background-color: rgba($darkest-gray, 0);
+		@include transition(height .1s ease-out);
+
+		&.active{		
+			height: 100%;
+			width: 100%;
+			z-index: 1500;
+		}
+	}
+	
+	&.top-position{
+		position:absolute;
+		top: 0;
+		z-index: 1000;
+
+		ul.menu-items{
+			position: absolute;
+			
+			.menu-item{
+				float: left;
+				margin: 1em;
+				&+ .menu-item{
+					margin-left: 1em;
+				}
+				a{
+					color: #fff;
+					text-transform: uppercase;
+					font-family: $bold-font-family;
+					text-shadow: 0px 1px 1px rgba(0,0,0,0.50);
+					&:hover, &:active{
+						color: $orange;
+					}
+				}
+			}
+			@media screen and (max-width:$medium-break){
+				display: block;
+				margin-right: 100%;
+				width: 100%;
+				z-index: 2000;
+				padding-bottom: 1em;
+				.menu-item{
+					display: none;
+				}
+				
+				
+				@include transition(all .3s ease-out);
+				&.active{
+					margin-right:0;
+					background: $dark-blue;
+					@include boxShadow(0, 1px, 2px, 0px, rgba(0,0,0,.5));
+					.menu-item{
+						float: none;
+						display: block;
+						clear: both;
+						padding: 0;
+						text-align: center;
+						a{
+							width: 100%;
+							float: left;
+							padding: 10px;
+							text-align: center;
+							background-color: $dark-blue;
+
+							&:hover{
+								background-color: $medium-blue;
+							}
+						}
+
+					}
+
+				}
+			}
+		}
+
+
+		.site-logo{
+		    display: block;
+		    width: 100%;
+		    height: 100%;
+		    background-image: url('../images/graphics/white-triangle.svg');
+		    background-size: contain;
+		    background-repeat: no-repeat;	
+		    background-position-y: -10px;
+		    background-position-x: 101%;
+		    padding-bottom: 25%;		
+
+			a.logo{
+				display: block;
+				min-height: 200px;
+				max-height: 200px;
+				width: 22%;
+
+				background-image: url('../images/logo/logo.svg');
+				background-size: 100%;
+				background-repeat: no-repeat;
+				margin: 10px;
+				margin-top: 2%;
+				text-indent: -9000%;
+
+				&.right{
+					float: right;
+					margin-right: .75em;
+					@media screen and (max-width:$medium-break){
+						margin-right: .2em;
+					 }
+
+				}
+				&.left{
+					float: left;
+					margin-left: .75em;
+					@media screen and (max-width:$medium-break){
+						margin-left: .2em;
+					 }
+				}
+			}
+		}
+	}
+}
+

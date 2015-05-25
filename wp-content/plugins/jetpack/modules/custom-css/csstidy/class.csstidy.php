@@ -34,28 +34,28 @@
  *
  * @version 1.0
  */
-require_once('class.csstidy_ctype.php');
+require_once( dirname( __FILE__ ) . '/class.csstidy_ctype.php' );
 
 /**
  * Various CSS data needed for correct optimisations etc.
  *
  * @version 1.3
  */
-require('data.inc.php');
+require( dirname( __FILE__ ) . '/data.inc.php' );
 
 /**
  * Contains a class for printing CSS code
  *
  * @version 1.0
  */
-require('class.csstidy_print.php');
+require( dirname( __FILE__ ) . '/class.csstidy_print.php' );
 
 /**
  * Contains a class for optimising CSS code
  *
  * @version 1.0
  */
-require('class.csstidy_optimise.php');
+require( dirname( __FILE__ ) . '/class.csstidy_optimise.php' );
 
 /**
  * CSS Parser class
@@ -179,7 +179,7 @@ class csstidy {
 	 * Example for a subvalue:
 	 * background:url(foo.png) red no-repeat;
 	 * "url(foo.png)", "red", and  "no-repeat" are subvalues,
-	 * seperated by whitespace
+	 * separated by whitespace
 	 * @var string
 	 * @access private
 	 */
@@ -736,7 +736,7 @@ class csstidy {
 
 										if (empty($this->sub_value_arr)) {
 											// Quote URLs in imports only if they're not already inside url() and not already quoted.
-											if (substr($this->sub_value, 0, 4) != 'url(') { 
+											if (substr($this->sub_value, 0, 4) != 'url(') {
 												if (!($this->sub_value{0} == substr($this->sub_value, -1) && in_array($this->sub_value{0}, array("'", '"')))) {
 													$this->sub_value = '"' . $this->sub_value . '"';
 												}
@@ -778,7 +778,7 @@ class csstidy {
 									}
 									else {
 										$this->sub_value = "format(";
-										
+
 										foreach ($format_strings as $format_string) {
 											$this->sub_value .= '"' . str_replace('"', '\\"', $format_string) . '",';
 										}
@@ -844,7 +844,7 @@ class csstidy {
 					$_cur_string = $this->cur_string[count($this->cur_string)-1];
 					$temp_add = $string{$i};
 
-					// Add another string to the stack. Strings can't be nested inside of quotes, only parentheses, but 
+					// Add another string to the stack. Strings can't be nested inside of quotes, only parentheses, but
 					// parentheticals can be nested more than once.
 					if ($_str_char === ")" && ($string{$i} === "(" || $string{$i} === '"' || $string{$i} === '\'') && !csstidy::escaped($string, $i)) {
 						$this->cur_string[] = $string{$i};
@@ -1171,6 +1171,7 @@ class csstidy {
 	 * @version 1.0
 	 */
 	function property_is_valid($property) {
+		$property = strtolower($property);
 		if (in_array(trim($property), $GLOBALS['csstidy']['multiple_properties'])) $property = trim($property);
 		$all_properties = & $GLOBALS['csstidy']['all_properties'];
 		return (isset($all_properties[$property]) && strpos($all_properties[$property], strtoupper($this->get_cfg('css_level'))) !== false );

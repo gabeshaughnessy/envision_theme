@@ -1,0 +1,17 @@
+//THIS FILE NEATLY BUNDLES UP ALL THE INCLUDES YOU NEED TO USE BOURBON & NEAT
+//Include this instead of Base when creating a stylesheet that doesn't need all the extra css like the reset.
+
+// Variables
+@import 'base/variables';
+
+// Neat Settings -- uncomment if using Neat -- must be imported before Neat
+@import 'base/grid-settings';
+
+// Mixins
+@import 'base/mixins/flash';
+@import 'base/mixins/mixins';
+
+// Extends
+@import 'base/extends/button';
+@import 'base/extends/clearfix';
+@import 'base/extends/hide-text';

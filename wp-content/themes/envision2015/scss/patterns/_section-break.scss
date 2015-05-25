@@ -1,0 +1,75 @@
+.section-break{
+	position: relative;
+	display: block;
+	float: left;
+	width: 100%;
+	height: 250px;
+	@media screen and (max-width: $phone-break){
+		height: 200px;
+	}
+	&.white{
+		background-color: #fff;
+	}
+	.title-area{
+		position: absolute;
+		bottom: 0;
+		z-index: 2;
+		display: block;
+	    width: 100%;
+	    height: 100%;
+	    padding-left: .75em;
+	    margin-bottom: -2px;
+	    background-image: url('../images/graphics/white-bottom-triangle.svg');
+	    &.medium-blue{
+	    	background-image: url('../images/graphics/medium-blue-bottom-triangle.svg');
+	    	.contents{
+	    		h2{
+	    			color: white;
+	    		}
+	    		.subtitle{
+	    			color: $gray;
+	    		}
+	    	}
+
+	    }
+	    &.dark-blue{
+	    	background-image: url('../images/graphics/dark-blue-bottom-triangle.svg');
+	    	.contents{
+	    		h2{
+	    			color: white;
+	    		}
+	    		.subtitle{
+	    			color: $gray;
+	    		}
+	    	}
+
+	    }
+	    background-size: contain;
+	    background-repeat: no-repeat;	
+	    background-position-y: bottom;
+	    background-position-x: -10px;
+	    height: 100%;
+	    @media screen and (max-width: $tablet-break){
+	    	font-size: .9em;
+	    }
+	    @media screen and (max-width: $phone-break){
+	    	font-size: .8em;
+	    }
+	    .contents{
+	    	position: absolute;
+	    	bottom: 0;
+	    	max-width: 50%;
+
+	    	@media screen and (orientation: portrait){
+
+	    	
+	    		max-width: 45%;
+	    	}
+	    	@media screen and (max-width:$medium-break){
+	    		
+	    		max-width: 45%;
+	    	}
+
+	    }
+	}
+}

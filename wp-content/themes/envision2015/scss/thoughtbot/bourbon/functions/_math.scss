@@ -1,0 +1,16 @@
+// SASS FUNCTIONS _________________________________
+@function half($value) {
+ @return $value/2
+ }
+ @function quarter($value) {
+ @return $value/4
+ }
+ @function divide($value, $n){
+  @return $value/$n
+ }
+ @function inverse($value){
+  @return 0 - $value
+ }
+ @function multiply($value, $n){
+  @return $n*$value
+ }

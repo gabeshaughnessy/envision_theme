@@ -12,13 +12,17 @@
 function jetpack_photon_url( $image_url, $args = array(), $scheme = null ) {
 	$image_url = trim( $image_url );
 
+	if ( false !== apply_filters( 'jetpack_photon_skip_for_url', false, $image_url, $args, $scheme ) ) {
+		return $image_url;
+	}
+
 	$image_url = apply_filters( 'jetpack_photon_pre_image_url', $image_url, $args,      $scheme );
 	$args      = apply_filters( 'jetpack_photon_pre_args',      $args,      $image_url, $scheme );
 
 	if ( empty( $image_url ) )
 		return $image_url;
 
-	$image_url_parts = parse_url( $image_url );
+	$image_url_parts = @parse_url( $image_url );
 
 	// Unable to parse
 	if ( ! is_array( $image_url_parts ) || empty( $image_url_parts['host'] ) || empty( $image_url_parts['path'] ) )
@@ -62,7 +66,17 @@ function jetpack_photon_url( $image_url, $args = array(), $scheme = null ) {
 	$subdomain = rand( 0, 2 );
 	srand();
 
-	$photon_url  = "http://i{$subdomain}.wp.com/$image_host_path";
+	/**
+	 * Filters the domain used by the Photon module.
+	 *
+	 * @since 3.4.2
+	 *
+	 * @param string http://i{$subdomain}.wp.com Domain used by Photon. $subdomain is a random number between 0 and 2.
+	 * @param string $image_url URL of the image to be photonized.
+	 */
+	$photon_domain = apply_filters( 'jetpack_photon_domain', "http://i{$subdomain}.wp.com", $image_url );
+	$photon_domain = trailingslashit( $photon_domain );
+	$photon_url  = $photon_domain . $image_host_path;
 
 	// This setting is Photon Server dependent
 	if ( isset( $image_url_parts['query'] ) && apply_filters( 'jetpack_photon_add_query_string_to_domain', false, $image_url_parts['host'] ) ) {
@@ -80,7 +94,7 @@ function jetpack_photon_url( $image_url, $args = array(), $scheme = null ) {
 
 	return jetpack_photon_url_scheme( $photon_url, $scheme );
 }
-
+add_filter( 'jetpack_photon_url', 'jetpack_photon_url', 10, 3 );
 
 /**
  * WordPress.com
@@ -90,7 +104,15 @@ function jetpack_photon_url( $image_url, $args = array(), $scheme = null ) {
 add_filter( 'jetpack_photon_pre_args', 'jetpack_photon_parse_wpcom_query_args', 10, 2 );
 
 function jetpack_photon_parse_wpcom_query_args( $args, $image_url ) {
-	$image_url_parts = parse_url( $image_url );
+	$parsed_url = @parse_url( $image_url );
+
+	if ( ! $parsed_url )
+		return $args;
+
+	$image_url_parts = wp_parse_args( $parsed_url, array(
+		'host'  => '',
+		'query' => ''
+	) );
 
 	if ( '.files.wordpress.com' != substr( $image_url_parts['host'], -20 ) )
 		return $args;
@@ -149,4 +171,20 @@ function jetpack_photon_allow_facebook_graph_domain( $allow = false, $domain ) {
 	}
 
 	return $allow;
+}
+
+add_filter( 'jetpack_photon_skip_for_url', 'jetpack_photon_banned_domains', 9, 4 );
+function jetpack_photon_banned_domains( $skip, $image_url, $args, $scheme ) {
+	$banned_domains = array(
+		'http://chart.googleapis.com/',
+		'https://chart.googleapis.com/',
+		'http://chart.apis.google.com/',
+	);
+
+	foreach ( $banned_domains as $banned_domain ) {
+		if ( wp_startswith( $image_url, $banned_domain ) )
+			return true;
+	}
+
+	return $skip;
 }

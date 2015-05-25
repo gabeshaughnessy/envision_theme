@@ -1,11 +1,13 @@
-<?php 
+<?php
 /**
  * Module Name: VaultPress
- * Module Description: Realtime backup and security scanning for your WordPress site.
+ * Module Description: Protect your site with automatic backups and security scans. (Subscription required.)
  * First Introduced: 0:1.2
- * Sort Order: 7
+ * Sort Order: 32
  * Deactivate: false
  * Free: false
+ * Requires Connection: Yes
+ * Auto Activate: Yes
  */
 
 add_action( 'jetpack_modules_loaded', 'vaultpress_jetpack_stub' );
@@ -16,7 +18,7 @@ function vaultpress_jetpack_stub() {
 		Jetpack::module_configuration_load( __FILE__, 'vaultpress_jetpack_configure' );
 		add_filter( 'jetpack_module_free_text_vaultpress', 'vaultpress_jetpack_module_free_text' );
 	}
-}	
+}
 
 function vaultpress_jetpack_module_free_text() {
 	return __( 'Active', 'jetpack' );

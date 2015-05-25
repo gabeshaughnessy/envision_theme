@@ -1,4 +1,7 @@
 .htaccess
+local-config.php
+2015reDesign/*
+.DS_Store
 db/*
 *.sql
 envision interiors.esproj/

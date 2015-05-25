@@ -1,0 +1,34 @@
+button,
+input[type="submit"]{
+    @extend %button;
+    @include appearance(none);
+    border: none;
+    cursor: pointer;
+    user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-transform: uppercase;
+    margin: 0;
+
+    &.big {
+        font-size: 2em;
+        padding: 0.4em 3em;
+        &:after {
+            margin: 0em -0.5em 0.2em 1em;
+        }
+    }
+
+}
+
+.cta:after {
+    display: inline;
+    margin: 0; margin-left: 0.5em;
+}
+
+button.cta:after {
+    vertical-align: middle;
+    display: inline-block;
+    margin: 0em 1em 0.4em;
+}
+
+

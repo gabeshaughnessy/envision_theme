@@ -1,0 +1,622 @@
+.page-wrapper{
+    clear: both;
+    overflow : hidden;
+    position: relative;
+    @media screen and (max-width : 782px){
+        padding-top: 0;
+    }
+}
+#wpstats{
+	display: none;
+}
+
+@import "../patterns/all-patterns";
+
+.medium-blue-wrapper{
+	background: $medium-blue;
+}
+.dark-blue-wrapper{
+	background: $dark-blue;
+}
+.medium-blue-wrapper, .dark-blue-wrapper{
+	h1, h2, h3, h4, h5, h6 {
+		color: white;
+	}
+	p, .lead {
+		color: $gray;
+	}
+	strong{
+		color: #fff;
+	}
+
+}
+/**
+ * 4.0 GRID
+ * ----------------------------------------------------------------------------
+ Most of the Grid setup happens in Neat (scss/thoughtbot/neat) but the actual grid styles are applied here
+ */
+
+ .column, .columns{
+    float: left;
+    display: block;
+ }
+.large-11 {
+    @include span-columns(11 of 12);
+    @media screen and (max-width : $tablet-break){}
+}
+.large-10 {
+    @include span-columns(10 of 12);
+    @media screen and (max-width : $tablet-break){
+        @include span-columns(12 of 12);
+    }
+}
+.large-9 {
+    @include span-columns(9 of 12);
+    @media screen and (max-width : $tablet-break){}
+}
+.large-8 {
+    @include span-columns(8 of 12);
+    @media screen and (max-width : $tablet-break){
+        @include span-columns(12 of 12);
+    }
+}
+.large-7 {
+    @include span-columns(7 of 12);
+    @media screen and (max-width : $tablet-break){}
+}
+.large-6 {
+    @include span-columns(6);
+    @media screen and (max-width : $tablet-break){
+        @include span-columns(12 of 12);
+    }
+}
+.large-5 {
+    @include span-columns(5 of 12);
+    @media screen and (max-width : $tablet-break){
+         @include span-columns(12 of 12);
+    }
+}
+.large-4 {
+    @include span-columns(4 of 12);
+    @media screen and (max-width : $tablet-break){
+        @include span-columns(12 of 12);
+    }
+}
+.large-3 {
+    @include span-columns(3 of 12);
+    @media screen and (max-width : $tablet-break){
+        @include span-columns(12 of 12);
+    }
+}
+.large-2 {
+    @include span-columns(2 of 12);
+    @media screen and (max-width : $tablet-break){
+        @include span-columns(12 of 12);
+    }
+}
+.large-1 {
+    @include span-columns(1 of 12);
+    @media screen and (max-width : $tablet-break){
+        @include span-columns(12 of 12);
+    }
+}
+
+//new MEDIUM column span classes: retain columns at 'tablet'(769<>1023), go full-width at the 'medium' (768) breakpoint
+
+.medium-10 {
+    @include span-columns(10 of 12);
+    @media screen and (max-width : $medium-break){
+        @include span-columns(12 of 12);
+    }
+}
+.medium-9 {
+    @include span-columns(9 of 12);
+    @media screen and (max-width : $medium-break){
+        @include span-columns(12 of 12);
+    }
+}
+.medium-8 {
+    @include span-columns(8 of 12);
+    @media screen and (max-width : $medium-break){
+        @include span-columns(12 of 12);
+    }
+}
+.medium-7 {
+    @include span-columns(7 of 12);
+    @media screen and (max-width : $medium-break){
+        @include span-columns(12 of 12);
+    }
+}
+.medium-6 {
+    @include span-columns(6);
+    @media screen and (max-width : $medium-break){
+        @include span-columns(12 of 12);
+    }
+}
+.medium-5 {
+    @include span-columns(5 of 12);
+    @media screen and (max-width : $medium-break){
+        @include span-columns(12 of 12);
+    }
+}
+.medium-4 {
+    @include span-columns(4 of 12);
+    @media screen and (max-width : $medium-break){
+        @include span-columns(12 of 12);
+    }
+}
+.medium-3 {
+    @include span-columns(3 of 12);
+    @media screen and (max-width : $medium-break){
+        @include span-columns(12 of 12);
+    }
+}
+.medium-2 {
+    @include span-columns(2 of 12);
+    @media screen and (max-width : $medium-break){
+        @include span-columns(12 of 12);
+    }
+}
+
+
+
+
+
+@media screen and (min-width:1025px){
+    .shift-large{
+        @include shift();
+    }
+    .large-shift-2{
+        @include shift(2);
+    }
+    .large-shift-3{
+        @include shift(3);
+    }
+    .large-shift-4{
+        @include shift(4);
+    }
+    .large-shift-5{
+        @include shift(5);
+    }
+    .large-shift-6{
+        @include shift(6);
+    }
+    .large-shift-7{
+        @include shift(7);
+    }
+    .large-shift-8{
+        @include shift(8);
+    }
+    .large-shift-9{
+        @include shift(9);
+    }
+    .large-shift-10{
+        @include shift(10);
+    }
+    .large-shift-11{
+        @include shift(11);
+    }
+}
+
+@media screen and (max-width: $tablet-break){
+    .shift-medium{
+        @media screen and (min-width:1025px){
+            @include shift();
+        }
+    }
+    .medium-shift-2{
+        @include shift(2);
+    }
+    .medium-shift-3{
+        @include shift(3);
+    }
+    .medium-shift-4{
+        @include shift(4);
+    }
+    .medium-shift-5{
+        @include shift(5);
+    }
+    .medium-shift-6{
+        @include shift(6);
+    }
+    .medium-shift-7{
+        @include shift(7);
+    }
+    .medium-shift-8{
+        @include shift(8);
+    }
+    .medium-shift-9{
+        @include shift(9);
+    }
+    .medium-shift-10{
+        @include shift(10);
+    }
+    .medium-shift-11{
+        @include shift(11);
+    }
+}
+
+
+
+
+
+
+
+
+
+/**
+ * 4.5 Layout,Positioning & Visibility Classes
+ * ----------------------------------------------------------------------------
+ */
+
+ .flex-grid{
+    list-style: none;
+    margin: auto;
+    padding: auto;
+    display: -webkit-flex;
+    display: flex;
+    &.center{
+        -webkit-justify-content:center;
+        justify-content: center;
+    }
+    &.flex-wrap{
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+ }
+ .lte-ie9{
+    .flex-grid{
+        display: auto;
+        > *{
+            float: left;
+        }
+    }
+ }
+
+.clearfix {
+    @include clearfix;
+}
+.assistive-text{
+    display: none;
+}
+.hide{
+    display: none;
+}
+.hide-for-tablet{
+    @media screen and (max-width: $tablet-break){
+        display : none !important;
+    }
+}
+.hide-for-medium{
+    @media screen and (max-width: $medium-break){
+        display : none !important;
+    }
+}
+.hide-for-mobile{
+    @media screen and (max-width: $tablet-break){
+        display : none !important;
+    }
+}
+.hide-for-small{
+    @media screen and (max-width: $phone-break){
+        display : none !important;
+    }
+}
+.relative{
+    position : relative;
+}
+
+.is-campaign-landing{
+    .hide-for-campaign-landing {
+        display: none;
+        &.active-tab { display: none; }
+    }
+}
+
+
+.show-for-campaign-landing {
+    display: none;
+}
+.is-campaign-landing{
+    .show-for-campaign-landing{
+        display: initial;
+    }
+}
+
+
+
+
+
+.show-for-medium-and-small {
+    display: none !important;
+    @media screen and (max-width: $medium-break){
+        display: block !important;
+    }
+}
+.hide-for-medium-and-small {
+    @media screen and (max-width: $medium-break){
+         display: none !important;
+    }
+}
+.show-for-mobile-only {
+    display: none !important;
+    @media screen and (max-width: $tablet-break){
+        display: block !important;
+    }
+
+}
+.show-for-small-only {
+    display: none !important;
+    @media screen and (max-width: $phone-break){
+        display: block !important;
+    }
+
+}
+
+.hide-for-small{
+    @media screen and (max-width: $phone-break){
+        display: none !important;
+    }
+}
+
+
+
+
+.one-half{
+    @media screen and (min-width: $phone-break){
+        float: left;
+        display : block;
+        box-sizing: border-box;
+        width: 50%;
+        padding-right:1em;
+    }
+}
+
+//split text into columns with these classes
+.two-column {
+        @media screen and (min-width: $tablet-break){
+        @include columns(2);
+      }
+  }
+.three-column { //split paragraphs into two-columns with this class
+        @media screen and (min-width: $tablet-break){
+        @include columns(3);
+      }
+  }
+.four-column { //split paragraphs into two-columns with this class
+        @media screen and (min-width: $tablet-break){
+        @include columns(4);
+      }
+  }
+
+// HELPER CLASSES FOR GENERAL PADDING
+.margin-horizontal{
+    margin: 0 2em;
+    }
+.margin-vertical{
+    margin: 2em 0;
+    }
+.margin-top{
+    margin-top: 3em;
+    }
+.margin-right{
+    margin-right: 2em;
+    }
+.margin-bottom{
+    margin-bottom: 3em;
+    }
+.margin-left{
+    margin-left: 2em;
+    }
+
+// HELPER CLASSES FOR GENERAL PADDING
+.pad-horizontal{
+    padding: 0 2em;
+    }
+.pad-vertical{
+    padding: 2em 0;
+    }
+.pad-top{
+    padding-top: 2em;
+    }
+.pad-right{
+    padding-right: 2em;
+    }
+.pad-bottom{
+    padding-bottom: 2em;
+    }
+.pad-left{
+    padding-left: 2em;
+    }
+//DEFAULT WORDPRESS IMAGE ALIGNMENT CLASSES:
+.alignleft{
+    float: left;
+    margin: 0 1em 1em 0;
+}
+.alignright{
+    float: right;
+    margin: 0 0 1em 1em;
+}
+.aligncenter{
+    text-align: center;
+    margin: 0 auto 1em;
+    display: block;
+    @include clearfix;
+}
+.alignnone{
+    @include clearfix;
+}
+
+//source ordering classes
+.large-right{
+    float: left;
+    @media screen and (min-width: $tablet-break){
+        float: right;
+    }
+}
+@media screen and (min-width: $tablet-break){
+    //full-width centered text has a bit of padding for large screens
+    .outer.container > {
+        .description, .slide-content {
+            padding: 0 8%;
+        }
+    }
+    .outer.container.center-text > {
+        p {
+            padding: 0 8%;
+        }
+    }
+}
+/**
+ * 4.75 Content Container Base Position, Padding and Margin + hard-break-clearfix
+ * ----------------------------------------------------------------------------
+ */
+ //Containers
+.container{
+    &.outer{
+        @include outer-container;
+        @media screen and (max-width: 1240px){
+            padding-left: .75em;
+            padding-right: .75em;
+        }
+    }
+    &.main{
+        width: 100%;
+        float:left;
+    }
+}
+
+ .content{
+    padding-top: 2em;
+    padding-bottom: 3em;
+    &.with-sidebar{
+        .main{
+            @include span-columns(9);
+            @media screen and (max-width: $tablet-break){
+                @include span-columns(12);
+            }
+        }
+        .sidebar{
+            @include span-columns(3);
+            @media screen and (max-width: $tablet-break){
+                @include span-columns(12);
+            }
+        }
+    }
+ }
+ .row {
+    padding-bottom: 2em;
+    float: left;
+    width: 100%;
+    @include clearfix;
+ }
+
+.hard-break-clear-both {
+    clear: both;
+}
+
+
+/**
+ * 5.0 Type - alignment and spacing utility classes
+ * ----------------------------------------------------------------------------
+ */
+ .center-text {
+    text-align: center;
+ }
+ .center-text-on-mobile{
+    @media screen and (max-width: $tablet-break){
+       text-align: center;
+    }
+ }
+ .center-text-on-desktop{
+    @media screen and (min-width: $tablet-break){
+       text-align: center;
+    }
+ }
+ .center-text-at-full-width{
+    text-align:center;
+ }
+ @media screen and (min-width: $tablet-break){
+    .large-6{
+        .center-text-at-full-width{
+            text-align: initial;
+         }
+    }
+
+    }
+ .left-text {
+    text-align : left;
+ }
+ .right-text {
+    text-align : right;
+ }
+
+ .lowercase{
+    text-transform: none;
+ }
+
+ .quote p{
+    &:before{
+        content : "\201c";
+        display: inline;
+    }
+    &:after{
+        content : "\201d";
+        display: inline;
+    }
+
+ }
+ strong{
+    opacity: .95;
+ }
+
+.featured{
+    list-style-type : none;
+    li{
+        border-top: 1px solid #ccc;
+        line-height: 2;
+
+        &:before{
+            content :"\002022";
+            color: #333;
+            margin: 0 .5em ;
+        }
+        &:last-child{
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 1em;
+
+        }
+    }
+ }
+ .disc {
+    list-style-type: disc;
+    margin: 0 0 1em 1.5em;
+ }
+ .circle {
+    list-style-type: circle;
+    margin: 0 0 1em 1.5em;
+ }
+ .square{
+    list-style-type: square;
+    margin: 0 0 1em 1.5em;
+ }
+ .decimal {
+    list-style-type: decimal;
+    margin: 0 0 1em 1.5em;
+ }
+ .lower-alpha{
+    list-style-type: lower-alpha;
+    margin: 0 0 1em 1.5em;
+ }
+ .upper-alpha{
+    list-style-type: upper-alpha;
+    margin: 0 0 1em 1.5em;
+ }
+ .lower-roman{
+    list-style-type: lower-roman;
+    margin: 0 0 1em 1.5em;
+ }
+ .upper-roman{
+    list-style-type: upper-roman;
+    margin: 0 0 1em 1.5em;
+ }

@@ -1,0 +1,85 @@
+// Typography
+$sans-serif: $helvetica;
+$serif: $georgia;
+$base-font-family: Avenir-Medium, helvetica, sans-serif;
+$header-font-family: Avenir-Heavy, helvetica, sans-serif;
+$bold-font-family: Avenir-Heavy, helvetica, sans-serif;
+$serif-font-family: $serif; //fallback uses Avenir then sans-serif because it looks better on the page - serif fallback fonts look like errors in this case.
+
+
+// Sizes
+$base-font-size: 1em;
+$base-line-height: $base-font-size * 1.5;
+$unitless-line-height: $base-line-height / ($base-line-height * 0 + 1); // Strip units from line-height: https://developer.mozilla.org/en-US/docs/Web/CSS/line-height#Prefer_unitless_numbers_for_line-height_values
+$header-line-height: $base-font-size * 1.25;
+$base-border-radius: 0;
+
+//COLORS
+
+$darkest-gray: #202020;
+$dark-gray: #5C5C5C;
+$medium-gray: #767676;
+$light-gray: #909090;
+$lightest-gray: #DFDFDF;
+
+
+$dark-blue: #07013D;
+
+$medium-blue: #405978;
+
+$light-blue: #768CAA;
+
+$gray: #E0E1DD;
+
+$orange: #EEA500;
+
+
+// Background Color
+$base-body-color: #fff;
+$base-background-color: white;
+
+// Font Colors
+$base-font-color: $medium-blue;
+$base-accent-color: $orange;
+$headline-color: $dark-blue;
+
+
+// Link Colors
+$base-link-color: $base-accent-color;
+$hover-link-color: darken($base-accent-color, 15);
+$base-button-color: $medium-blue;
+$hover-button-color: $dark-blue;
+
+// Border color
+$base-border-color: #ddd;
+
+
+// thoughtbot alert colors
+$light-red: lighten(red, 45%);
+$light-yellow: lighten(yellow, 45%);
+$light-green: lighten(green, 45%);
+
+// Flash Colors
+$alert-color: $light-yellow;
+$error-color: $light-red;
+$notice-color: $light-yellow;
+$success-color: $light-green;
+
+
+// Forms
+$form-border-color: $base-border-color;
+$form-border-color-hover: darken($base-border-color, 10);
+$form-border-color-focus: $base-accent-color;
+$form-border-radius: $base-border-radius;
+$form-box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+$form-box-shadow-focus: $form-box-shadow, 0 0 5px rgba(darken($form-border-color-focus, 5), 0.7);
+$form-font-size: $base-font-size;
+$form-font-family: $base-font-family;
+
+
+
+
+
+
+
+

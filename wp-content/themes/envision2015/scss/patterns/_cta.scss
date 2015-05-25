@@ -1,0 +1,17 @@
+a.call-to-action{
+	font-family: $header-font-family;
+	font-size: 1.5em;
+	@media screen and (max-width: $phone-break){
+		font-size:1.1em;
+	}
+	text-transform: uppercase;
+	cursor: pointer;
+	line-height: 5em;
+
+&:after{
+	content: '\276f \276f';
+	display: inline;
+	margin-left: .2em;
+}
+
+}

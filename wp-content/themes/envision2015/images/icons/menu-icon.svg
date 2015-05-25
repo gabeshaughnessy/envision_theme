@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="-135 498 16 14"
+	 enable-background="new -135 498 16 14" xml:space="preserve">
+<title>Menu Icon</title>
+<desc>Created with Sketch.</desc>
+<g id="Welcome" sketch:type="MSPage">
+	<g id="Mobile" transform="translate(-13.000000, -15.000000)" sketch:type="MSArtboardGroup">
+		<g id="MENU--_x2B_-Menu-Icon" transform="translate(0.000000, -2.000000)" sketch:type="MSLayerGroup">
+			<g id="Menu-Icon" transform="translate(13.000000, 17.551724)" sketch:type="MSShapeGroup">
+				<path id="Oval-15" fill="#FFFFFF" d="M-133.1,501.2c0,0-0.1,0-0.1,0c-1,0-1.8-0.7-1.8-1.6c0-0.9,0.8-1.6,1.8-1.6
+					c0,0,0.1,0,0.1,0v0h11.9v0.1c0.7,0.2,1.3,0.8,1.3,1.5c0,0.7-0.5,1.3-1.3,1.5v0.1L-133.1,501.2L-133.1,501.2z"/>
+				<path id="Oval-15-Copy-2" fill="#FFFFFF" d="M-133.1,506c0,0-0.1,0-0.1,0c-1,0-1.8-0.7-1.8-1.6c0-0.9,0.8-1.6,1.8-1.6
+					c0,0,0.1,0,0.1,0v0h11.9v0.1c0.7,0.2,1.3,0.8,1.3,1.5c0,0.7-0.5,1.3-1.3,1.5v0.1L-133.1,506L-133.1,506z"/>
+				<path id="Oval-15-Copy-3" fill="#FFFFFF" d="M-133.1,510.9c0,0-0.1,0-0.1,0c-1,0-1.8-0.7-1.8-1.6c0-0.9,0.8-1.6,1.8-1.6
+					c0,0,0.1,0,0.1,0v0h11.9v0.1c0.7,0.2,1.3,0.8,1.3,1.5c0,0.7-0.5,1.3-1.3,1.5v0.1L-133.1,510.9L-133.1,510.9z"/>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>
