@@ -36,6 +36,7 @@
 .contact-form{
 	background-color: $gray;
 	padding: 1.5em;
+	float: left;
 	@media screen and (max-width:$phone-break){
 		padding: 1em .5em;
 	}
@@ -84,6 +85,11 @@
 			text-align: center;
 			display: inherit;
 			margin: 0 auto;
+		}
+		.contact-submit{
+			float: left;
+			text-align: center;
+			width: 100%;
 		}
 
 		

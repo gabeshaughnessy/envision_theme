@@ -1,9 +1,9 @@
 // Typography
 $sans-serif: $helvetica;
 $serif: $georgia;
-$base-font-family: Avenir-Medium, helvetica, sans-serif;
-$header-font-family: Avenir-Heavy, helvetica, sans-serif;
-$bold-font-family: Avenir-Heavy, helvetica, sans-serif;
+$base-font-family: 'Avenir-Medium', Avenir-Medium, helvetica, sans-serif;
+$header-font-family: 'Avenir-Heavy', Avenir-Heavy, helvetica, sans-serif;
+$bold-font-family: 'Avenir-Heavy', Avenir-Heavy, helvetica, sans-serif;
 $serif-font-family: $serif; //fallback uses Avenir then sans-serif because it looks better on the page - serif fallback fonts look like errors in this case.
 
 

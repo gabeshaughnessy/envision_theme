@@ -27,8 +27,7 @@ footer{
 	    }
 	    background-size: contain;
 	    background-repeat: no-repeat;	
-	    background-position-y: top;
-	    background-position-x: -10px;
+	    background-position: 101% -1px;
 	    height: 35%;
 	    @media screen and (max-width: $tablet-break){
 	    	height: 40%;
@@ -88,8 +87,7 @@ footer{
 		    background-image: url('../images/graphics/dark-blue-triangle.svg');
 		    background-size: contain;
 		    background-repeat: no-repeat;	
-		    background-position-y: -10px;
-		    background-position-x: 101%;
+		    background-position: 101% -10px;
 		    padding-bottom: 25%;		
 
 			a.logo{

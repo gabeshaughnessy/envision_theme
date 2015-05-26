@@ -2,8 +2,7 @@
 	background-image: url('../images/graphics/white-triangle.svg');
 	background-size: contain;
 	background-repeat: no-repeat;	
-	background-position-y: -1px;
-	background-position-x: 101%;
+	background-position: 100% -1px;
 	position: absolute;
 	display: block;
 	padding-left: .75em;
@@ -67,8 +66,7 @@
 	    }
 	    background-size: contain;
 	    background-repeat: no-repeat;	
-	    background-position-y: bottom;
-	    background-position-x: -10px;
+	    background-position: -10px  bottom;
 	    height: 45%;
 	    @media screen and (max-width: $tablet-break){
 	    	height: 60%;
