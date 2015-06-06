@@ -102,8 +102,8 @@ sub { top: 0.4em; }
 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
 /* Classes */
-.page-wrapper { clear: both; overflow: hidden; position: relative; }
-@media screen and (max-width: 782px) { .page-wrapper { padding-top: 0; } }
+x.page-wrapper { clear: both; overflow: hidden; position: relative; }
+@media screen and (max-width: 782px) { x.page-wrapper { padding-top: 0; } }
 
 #wpstats { display: none; }
 
@@ -242,11 +242,21 @@ footer .site-logo a.logo.left { float: left; margin-left: .75em; }
 .post-grid .post:hover .post-title h4 { color: #07013D; }
 .post-grid .post .tag-list { max-width: 50%; text-align: right; float: right; font-size: .8em; }
 @media screen and (max-width: 480px) { .post-grid .post .tag-list { max-width: 100%; width: 100%; float: left; text-align: left; margin-top: 3px; } }
-.post-grid .post .tag-list .tag { display: inline-block; background: #eee; padding: 1px 6px; margin: 2px 0; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s; }
+.post-grid .post .tag-list .tag { display: inline-block; background: #eee; padding: 1px 6px; margin: 2px 1px; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s; }
 .post-grid .post .tag-list .tag a { color: #909090; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s; }
 .post-grid .post .tag-list .tag:hover { background: #DFDFDF; }
 .post-grid .post .tag-list .tag:hover a { color: #EEA500; }
 .post-grid .post:hover .tag-list .tag a { color: #07013D; }
+.post-grid.supplier-grid .post.supplier { display: block; float: left; width: 32%; margin-right: 1.5%; margin-bottom: 1.5%; padding: 1em; -webkit-box-shadow: 0 2px 2px 0 rgba(170, 170, 170, 0.14), 0 1px 5px 0 rgba(170, 170, 170, 0.12), 0 3px 1px -2px rgba(170, 170, 170, 0.2); -moz-box-shadow: 0 2px 2px 0 rgba(170, 170, 170, 0.14), 0 1px 5px 0 rgba(170, 170, 170, 0.12), 0 3px 1px -2px rgba(170, 170, 170, 0.2); -o-box-shadow: 0 2px 2px 0 rgba(170, 170, 170, 0.14), 0 1px 5px 0 rgba(170, 170, 170, 0.12), 0 3px 1px -2px rgba(170, 170, 170, 0.2); box-shadow: 0 2px 2px 0 rgba(170, 170, 170, 0.14), 0 1px 5px 0 rgba(170, 170, 170, 0.12), 0 3px 1px -2px rgba(170, 170, 170, 0.2); -webkit-transition: box-shadow 0.18s cubic-bezier(0.4, 0, 0.2, 1); -moz-transition: box-shadow 0.18s cubic-bezier(0.4, 0, 0.2, 1); transition: box-shadow 0.18s cubic-bezier(0.4, 0, 0.2, 1); }
+@media screen and (min-width: 768px) { .post-grid.supplier-grid .post.supplier:nth-child(3n) { margin-right: 0; } }
+@media screen and (max-width: 768px) { .post-grid.supplier-grid .post.supplier { width: 49%; margin-right: 2%; }
+  .post-grid.supplier-grid .post.supplier:nth-child(2n) { margin-right: 0; } }
+@media screen and (max-width: 480px) { .post-grid.supplier-grid .post.supplier { width: 100%; margin-right: 0; } }
+.post-grid.supplier-grid .post.supplier:hover { -webkit-box-shadow: 0 4px 5px 0 rgba(170, 170, 170, 0.14), 0 1px 10px 0 rgba(170, 170, 170, 0.12), 0 2px 4px -1px rgba(170, 170, 170, 0.4); -moz-box-shadow: 0 4px 5px 0 rgba(170, 170, 170, 0.14), 0 1px 10px 0 rgba(170, 170, 170, 0.12), 0 2px 4px -1px rgba(170, 170, 170, 0.4); -o-box-shadow: 0 4px 5px 0 rgba(170, 170, 170, 0.14), 0 1px 10px 0 rgba(170, 170, 170, 0.12), 0 2px 4px -1px rgba(170, 170, 170, 0.4); box-shadow: 0 4px 5px 0 rgba(170, 170, 170, 0.14), 0 1px 10px 0 rgba(170, 170, 170, 0.12), 0 2px 4px -1px rgba(170, 170, 170, 0.4); z-index: 3; }
+.post-grid.supplier-grid .post.supplier:hover .post-image { -webkit-box-shadow: none; -moz-box-shadow: none; -o-box-shadow: none; box-shadow: none; }
+.post-grid.supplier-grid .post.supplier .post-image { background-size: contain; }
+.post-grid.supplier-grid .post.supplier .tag-list { max-width: 100%; width: 100%; text-align: left; float: left; font-size: .8em; min-height: 4em; }
+.post-grid.supplier-grid .post.supplier .post-title { float: left; max-width: 100%; width: 100%; margin-right: 0; }
 
 .social-profile-banner { float: left; width: 100%; margin-top: 3em; text-align: center; display: block; background: #E0E1DD; padding: 2em; margin-bottom: 1.5em; }
 @media screen and (max-width: 480px) { .social-profile-banner { padding: 1em 1em; } }

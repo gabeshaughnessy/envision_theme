@@ -1,16 +1,22 @@
-<?php global $post; ?>
-<li class="post">
+<?php global $post;
+//get supplier website
+$supplier_site = get_post_meta($post->ID, 'env_supplier_url', true);
+
+?>
+<li class="post supplier">
 	<?php if (has_post_thumbnail( $post->ID ) ): ?>
 		<?php $bg_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' ); ?>
-		<a class="post-image" href="<?php the_permalink(); ?>" style="background-image:url('<?php echo $bg_image[0]; ?>');" ></a>
+		<a class="post-image" href="<?php echo $supplier_site; ?>" target="_blank" title="visit the <?php the_title(); ?> website" style="background-image:url('<?php echo $bg_image[0]; ?>');" ></a>
 	<?php endif; ?>
 	
 	<div class="post-details">
-		<a class="post-title" href="<?php the_permalink(); ?>" title="view post"><h4 ><?php the_title(); ?></h4></a>
+		<a class="post-title" href="<?php echo $supplier_site; ?>" target="_blank" title="visit the <?php the_title(); ?> website"><h4 ><?php the_title(); ?></h4></a>
 
 
 		<?php //get tag list 
-			$post_tags = wp_get_post_tags( $post->ID);
+			$post_tags = get_the_terms($post->ID, 'supplier-type');
+
+
 
 			if(isset($post_tags) && !empty($post_tags)){
 				echo '<ul class="tag-list">';

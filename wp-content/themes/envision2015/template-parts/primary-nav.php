@@ -1,17 +1,3 @@
-<?php
-
-//Logo
-
-//Menu
-	//MENU ICON
-		//ICON
-		//TEXT
-	//MENU ITEM
-		//LABEL
-		//TITLE
-		//URL
-
-?>
 <div class="nav top-position" id="primary">
 	<div class="menu-icon-wrapper">
 		<span class="menu-icon"></span>
@@ -19,6 +5,7 @@
 	</div>
 	<div class="menu-bg"></div>
 	<ul class="menu-items">
+		<li class="menu-item"><a href="/" title="Home Page">Home</a></li>
 		<li class="menu-item"><a href="/portfolio" title="Section 1 Title">Our Work</a></li>
 		<li class="menu-item"><a href="/about" title="Section 2 Title">About Us</a></li>
 		<li class="menu-item"><a href="/suppliers" title="Section 3 Title">Suppliers</a></li>

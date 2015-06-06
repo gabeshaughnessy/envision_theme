@@ -1,0 +1,91 @@
+{
+    "key": "group_557359481a0a6",
+    "title": "Archive Settings",
+    "fields": [
+        {
+            "key": "field_5573594f25dc4",
+            "label": "Archive Image",
+            "name": "archive_image",
+            "prefix": "",
+            "type": "image",
+            "instructions": "Select an image to display on this tag archive. If no image is selected, the first post will be used.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "thumbnail",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
+            "key": "field_5573599325dc5",
+            "label": "Archive Title",
+            "name": "archive_title",
+            "prefix": "",
+            "type": "text",
+            "instructions": "The title to display on the Archive. If none is given, the tag slug will be used.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "readonly": 0,
+            "disabled": 0
+        },
+        {
+            "key": "field_557359af25dc6",
+            "label": "Archive tagline",
+            "name": "archive_tagline",
+            "prefix": "",
+            "type": "text",
+            "instructions": "A short tagline beneath the title (optional)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "readonly": 0,
+            "disabled": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "all"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "modified": 1433622999
+}
