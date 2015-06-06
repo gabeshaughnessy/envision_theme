@@ -182,6 +182,7 @@ footer .site-logo a.logo.left { float: left; margin-left: .75em; }
 .pre-hero.dark-blue { background-image: url("../images/graphics/dark-blue-triangle.svg"); }
 
 .hero-area { position: relative; width: 100%; }
+.hero-area h2 { max-width: 50%; }
 .hero-area .title-area { position: absolute; bottom: 0; z-index: 2; display: block; width: 100%; height: 100%; padding-left: .75em; margin-bottom: -2px; background-image: url("../images/graphics/white-bottom-triangle.svg"); background-size: contain; background-repeat: no-repeat; background-position: -10px  bottom; height: 45%; }
 .hero-area .title-area.medium-blue { background-image: url("../images/graphics/medium-blue-bottom-triangle.svg"); }
 .hero-area .title-area.medium-blue .contents h2 { color: white; }
