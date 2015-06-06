@@ -20,6 +20,11 @@
         wp_footer();
         echo '</div>'; // .page-wrapper
 
+        if('SITE_ENVIRONMENT' == "production"){
+	        get_template_part('template-parts/ga_tracking.php');
+	    }
+
 ?>
+
     </body>
 </html>

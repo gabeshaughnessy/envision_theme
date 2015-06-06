@@ -10,6 +10,7 @@
 <?php global $post; ?>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="hF84QRz2Ycf3zuPPorykVDvrXMKtiNwtCiCem-K1wQg" />
     <title><?php wp_title('|', true, 'right'); ?></title>
 
     <link rel="apple-touch-icon-precomposed" media="handheld" href="<?php echo bloginfo('stylesheet_directory');?>/images/icons/touch-icon.png" />
