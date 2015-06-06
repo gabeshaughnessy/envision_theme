@@ -22,4 +22,8 @@ require_once('functions/functions-acf.php');
 //enqueue styles and scripts
 require_once('functions/functions-enqueue.php');
 
+
+if ( ! isset( $content_width ) ){
+    $content_width = 1080;
+}
 ?>
