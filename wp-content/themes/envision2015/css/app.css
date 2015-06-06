@@ -241,7 +241,7 @@ footer .site-logo a.logo.left { float: left; margin-left: .75em; }
 @media screen and (max-width: 480px) { .post-grid .post .post-title { max-width: 100%; width: 100%; } }
 .post-grid .post .post-title h4 { color: #767676; font-size: 1em; font-family: "Avenir-Medium", Avenir-Medium, helvetica, sans-serif; font-weight: 100; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s; }
 .post-grid .post:hover .post-title h4 { color: #07013D; }
-.post-grid .post .tag-list { max-width: 50%; text-align: right; float: right; font-size: .8em; }
+.post-grid .post .tag-list { max-width: 50%; text-align: right; float: right; font-size: .8em; min-height: 4em; }
 @media screen and (max-width: 480px) { .post-grid .post .tag-list { max-width: 100%; width: 100%; float: left; text-align: left; margin-top: 3px; } }
 .post-grid .post .tag-list .tag { display: inline-block; background: #eee; padding: 1px 6px; margin: 2px 1px; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s; }
 .post-grid .post .tag-list .tag a { color: #909090; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s; }
