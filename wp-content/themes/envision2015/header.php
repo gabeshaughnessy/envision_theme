@@ -29,7 +29,7 @@
 <?php
 echo '<body '; body_class(); echo '>';
 
-    echo '<div class="page-wrapper">';
+    echo '<div class="page-wrapper outer container">';
 
     get_template_part('template-parts/primary-nav');
 

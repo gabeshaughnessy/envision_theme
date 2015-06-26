@@ -1,4 +1,4 @@
-x.page-wrapper{
+.page-wrapper{
     clear: both;
     overflow : hidden;
     position: relative;
@@ -14,10 +14,13 @@ x.page-wrapper{
 
 .medium-blue-wrapper{
 	background: $medium-blue;
+    padding: 1em;
 }
 .dark-blue-wrapper{
 	background: $dark-blue;
+    padding: 1em;
 }
+
 .medium-blue-wrapper, .dark-blue-wrapper{
 	h1, h2, h3, h4, h5, h6 {
 		color: white;
