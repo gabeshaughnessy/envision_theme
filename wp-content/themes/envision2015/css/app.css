@@ -147,7 +147,7 @@ sub { top: 0.4em; }
 .content-row + .content-row { margin-top: 3em; }
 .content-row:last-child { margin-bottom: 3em; }
 
-.page-content { padding: 3em 0; }
+.page-content { padding: 0 0 3em 0; }
 
 a.call-to-action { font-family: "Avenir-Heavy", Avenir-Heavy, helvetica, sans-serif; font-size: 1.5em; text-transform: uppercase; cursor: pointer; line-height: 5em; }
 @media screen and (max-width: 480px) { a.call-to-action { font-size: 1.1em; } }
