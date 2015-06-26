@@ -261,16 +261,15 @@ footer .site-logo a.logo.left { float: left; margin-left: .75em; }
 
 .social-profile-banner { float: left; width: 100%; margin-top: 3em; text-align: center; display: block; background: #E0E1DD; padding: 2em; margin-bottom: 1.5em; }
 @media screen and (max-width: 480px) { .social-profile-banner { padding: 1em 1em; } }
-.social-profile-banner .profile-card { display: table; width: 35%; margin-left: 10%; float: left; padding: 1em; background-color: #E0E1DD; -webkit-box-shadow: 0 1px 1px 0 transparent ; -moz-box-shadow: 0 1px 1px 0 transparent ; -o-box-shadow: 0 1px 1px 0 transparent ; box-shadow: 0 1px 1px 0 transparent ; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s; }
+.social-profile-banner .profile-card { display: block; width: 50%; text-align: center; margin: 0 auto; float: none; padding: 1em; background-color: #E0E1DD; -webkit-box-shadow: 0 1px 1px 0 transparent ; -moz-box-shadow: 0 1px 1px 0 transparent ; -o-box-shadow: 0 1px 1px 0 transparent ; box-shadow: 0 1px 1px 0 transparent ; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s; }
 .social-profile-banner .profile-card:hover { background-color: #fff; -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2) ; -moz-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2) ; -o-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2) ; box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2) ; }
 .social-profile-banner .profile-card + .profile-card { margin-left: 10%; }
-@media screen and (max-width: 768px) { .social-profile-banner .profile-card { width: 90%; margin-top: 2em; margin-left: 0; }
+@media screen and (max-width: 768px) { .social-profile-banner .profile-card { width: 90%; margin-top: 2em; margin-left: auto; }
   .social-profile-banner .profile-card + .profile-card { margin-bottom: 2em; margin-left: 0; } }
-.social-profile-banner .profile-card .profile-icon { width: 90%; display: table-cell; text-align: right; vertical-align: middle; padding-right: 1em; }
-.social-profile-banner .profile-card .profile-icon.pinterest { width: 13%; }
-@media screen and (max-width: 768px) { .social-profile-banner .profile-card .profile-icon { display: block; width: 70%; padding: 0 20%; margin: 0 auto; text-align: center; }
-  .social-profile-banner .profile-card .profile-icon.pinterest { width: 54%; } }
-.social-profile-banner .profile-card .profile-details { width: 65%; display: table-cell; text-align: left; vertical-align: middle; line-height: 1; }
+.social-profile-banner .profile-card .profile-icon { width: 90%; display: block; text-align: center; vertical-align: middle; margin: 0 auto; }
+.social-profile-banner .profile-card .profile-icon.pinterest { width: 20%; }
+@media screen and (max-width: 768px) { .social-profile-banner .profile-card .profile-icon { display: block; width: 50%; margin: 0 auto; text-align: center; } }
+.social-profile-banner .profile-card .profile-details { width: 65%; display: block; text-align: center; vertical-align: middle; line-height: 1.3; margin: 0 auto; }
 .social-profile-banner .profile-card .profile-details h5 { color: #202020; }
 .social-profile-banner .profile-card .profile-details .profile-url { color: #767676; }
 @media screen and (max-width: 768px) { .social-profile-banner .profile-card .profile-details { display: block; text-align: center; width: 100%; padding: 1em 10%; } }

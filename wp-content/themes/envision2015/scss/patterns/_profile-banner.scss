@@ -12,10 +12,11 @@
 	}
 	margin-bottom: 1.5em;
 	.profile-card{
-		 display: table;
-		 width: 35%;
-		 margin-left: 10%;
-		 float: left;
+		 display: block;
+		 width: 50%;
+		 text-align:center;
+		 margin: 0 auto;
+		 float: none;
 		 padding: 1em;
 		 background-color: $gray;
 		 @include boxShadow(0, 1px, 1px, 0, rgba(0,0,0,0));
@@ -30,7 +31,7 @@
 		 @media screen and (max-width: $medium-break){
 			width: 90%;
 			margin-top: 2em;
-			margin-left: 0;
+			margin-left: auto;
 			&+ .profile-card{
 				margin-bottom: 2em;
 				margin-left: 0;
@@ -38,31 +39,29 @@
 		 }
 		 .profile-icon{
 		 	width: 90%;
-		 	display: table-cell;
-			text-align: right;
+		 	display: block;
+			text-align: center;
 			vertical-align: middle;
-			padding-right: 1em;
+			margin: 0 auto;
+
 			&.pinterest{
-				width: 13%;
+				width: 20%;
 			}
 			@media screen and (max-width: $medium-break){
 				display: block;
-				width: 70%;
-				padding: 0 20%;
+				width: 50%;
 				margin: 0 auto;
 				text-align: center;
-				&.pinterest{
-					width: 54%
-				}
 			 }
 
 		 }
 		 .profile-details{
 		 	width: 65%;
-		 	display: table-cell;
-			text-align: left;
+		 	display: block;
+			text-align: center	;
 			vertical-align: middle;
-			line-height:1;
+			line-height:1.3;
+			margin: 0 auto;
 			h5{
 				color: $darkest-gray;
 			}
