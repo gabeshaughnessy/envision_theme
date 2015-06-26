@@ -54,7 +54,7 @@ if($current_post->have_posts()) : while($current_post->have_posts()) : $current_
 		get_template_part('template-parts/about-us-content');
 	endwhile;
 	echo '</div>';
-endif;
+endif;	
 
 //switch page
 $current_post = $page_query[$section_pages[2]];
