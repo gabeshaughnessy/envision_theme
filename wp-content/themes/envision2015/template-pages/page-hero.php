@@ -9,6 +9,7 @@ get_template_part('template-parts/hero');
 
 //ARTICLE
 	//PAGE CONTENT
+get_template_part('template-parts/lead');
 get_template_part('template-parts/page-content');
 
 //if show_contact banner
