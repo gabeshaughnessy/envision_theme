@@ -10,7 +10,7 @@
 		</a>
 	</div> -->			
 	<div class="profile-card">
-		<a href="http://pinterest.com/envisioninteriors" title="Envision Interiors on Pinterest" target="_blank" class="profile-icon pinterest">
+		<a href="http://pinterest.com/envisioninterio/" title="Envision Interiors on Pinterest" target="_blank" class="profile-icon pinterest">
 			<img src="<?php bloginfo('stylesheet_directory'); ?>/images/icons/social/pinterest-badge.png" alt="profile icon alt" width="100%" height="auto" />
 		</a>
 		
