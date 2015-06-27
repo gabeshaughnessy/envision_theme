@@ -135,7 +135,7 @@
 		    background-image: url('../images/graphics/white-triangle.svg');
 		    background-size: contain;
 		    background-repeat: no-repeat;	
-		    background-position: 101% -10px;
+		    background-position: 101% -10px; //see ie rules
 		    padding-bottom: 25%;		
 
 			a.logo{
@@ -171,3 +171,13 @@
 	}
 }
 
+.ie {
+	#primary.nav{
+		&.top-position{
+			.site-logo{
+				background-position-x: 500px;
+				background-position-y: -1px;
+			}
+		}
+	}
+}
