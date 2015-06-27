@@ -10,6 +10,6 @@
 	   <span> | </span>
 	   Fax: <span itemprop="faxNumber">503-954-2736</span>
 	   <br />
-	   Email: <span itemprop="email">info@envisioninteriorsinc.com</span>
+	   Email: <a href="mailto:info@envisioninteriorsinc.com"><span itemprop="email">info@envisioninteriorsinc.com</span></a>
 	</div>
 </div>

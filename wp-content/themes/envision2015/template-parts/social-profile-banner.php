@@ -10,11 +10,11 @@
 		</a>
 	</div> -->			
 	<div class="profile-card">
-		<a href="http://pinterest.com/envisioninteriors" title="Envision Interiors on Pinterest" class="profile-icon pinterest">
+		<a href="http://pinterest.com/envisioninteriors" title="Envision Interiors on Pinterest" target="_blank" class="profile-icon pinterest">
 			<img src="<?php bloginfo('stylesheet_directory'); ?>/images/icons/social/pinterest-badge.png" alt="profile icon alt" width="100%" height="auto" />
 		</a>
 		
-		<a class="profile-details" href="https://www.pinterest.com/envisioninterio/" >
+		<a class="profile-details" href="https://www.pinterest.com/envisioninterio/" target="_blank">
 			<h5>Find us on Pinterest</h5>
 			<span class="profile-url">View our Boards</span>
 		</a>
