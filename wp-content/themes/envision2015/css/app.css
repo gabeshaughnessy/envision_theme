@@ -229,8 +229,6 @@ footer .site-logo a.logo.left { float: left; margin-left: .75em; }
 #primary.nav.top-position .site-logo a.logo.left { float: left; margin-left: .75em; }
 @media screen and (max-width: 768px) { #primary.nav.top-position .site-logo a.logo.left { margin-left: .2em; } }
 
-.ie #primary.nav.top-position .site-logo { background-position-x: 500px; background-position-y: -1px; }
-
 .post-grid .post { display: block; float: left; width: 50%; padding: 1em; padding-left: 0; }
 @media screen and (max-width: 768px) { .post-grid .post { width: 100%; } }
 .post-grid .post:nth-child(even) { padding-right: 0; padding-left: 1em; }
