@@ -170,3 +170,14 @@
 		}
 	}
 }
+.ie #primary.nav.top-position .site-logo, .ie10 #primary.nav.top-position .site-logo{
+
+	width: 35%;
+	position: absolute;
+	right: 0;
+	height: 40%;
+	a.logo{
+		width: 50%;
+	}
+
+}

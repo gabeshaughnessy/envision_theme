@@ -175,11 +175,15 @@ footer .site-logo a.logo { display: block; min-height: 200px; max-height: 200px;
 footer .site-logo a.logo.right { float: right; margin-right: .75em; }
 footer .site-logo a.logo.left { float: left; margin-left: .75em; }
 
+.ie footer .triangle.dark-blue, .ie footer .site-logo, .ie10 footer .triangle.dark-blue, .ie10 footer .site-logo { background-image: none; }
+
 .pre-hero { background-image: url("../images/graphics/white-triangle.svg"); background-size: contain; background-repeat: no-repeat; background-position: 101% -1px; position: absolute; display: block; padding-left: .75em; z-index: 2; width: 100%; height: 50%; }
 @media screen and (max-width: 1024px) { .pre-hero { height: 45%; } }
 @media screen and (max-width: 480px) { .pre-hero { height: 40%; } }
 .pre-hero.medium-blue { background-image: url("../images/graphics/medium-blue-triangle.svg"); }
 .pre-hero.dark-blue { background-image: url("../images/graphics/dark-blue-triangle.svg"); }
+
+.ie10 .pre-hero, .ie .pre-hero { right: 0; width: 45%; }
 
 .hero-area { position: relative; width: 100%; }
 .hero-area h2 { max-width: 50%; }
@@ -228,6 +232,9 @@ footer .site-logo a.logo.left { float: left; margin-left: .75em; }
 @media screen and (max-width: 768px) { #primary.nav.top-position .site-logo a.logo.right { margin-right: .2em; } }
 #primary.nav.top-position .site-logo a.logo.left { float: left; margin-left: .75em; }
 @media screen and (max-width: 768px) { #primary.nav.top-position .site-logo a.logo.left { margin-left: .2em; } }
+
+.ie #primary.nav.top-position .site-logo, .ie10 #primary.nav.top-position .site-logo { width: 35%; position: absolute; right: 0; height: 40%; }
+.ie #primary.nav.top-position .site-logo a.logo, .ie10 #primary.nav.top-position .site-logo a.logo { width: 50%; }
 
 .post-grid .post { display: block; float: left; width: 50%; padding: 1em; padding-left: 0; }
 @media screen and (max-width: 768px) { .post-grid .post { width: 100%; } }

@@ -4,7 +4,14 @@
 </script> <![endif]-->
 <!--[if IE 8]> <html xmlns="http://www.w3.org/1999/xhtml" class="ie lt-ie9" lang="en"> <![endif]-->
 <!--[if IE 9]> <html xmlns="http://www.w3.org/1999/xhtml" class="ie lte-ie9" lang="en"> <![endif]-->
-
+<script>
+var isIE10 = false;
+    /*@cc_on
+        if (/^10/.test(@_jscript_version)) {
+            isIE10 = true;
+        }
+    @*/
+</script>
 <!--[if gt IE 9]><!--> <html <?php language_attributes(); ?> ><!--<![endif]-->
 <head>
 <?php global $post; ?>
@@ -25,9 +32,14 @@
     <![endif]-->
 
 </head>
-
+<?php $body_class = ''; ?>
+<script>
+if(isIE10){
+<?php $body_class = 'ie10'; ?>
+}
+</script>
 <?php
-echo '<body '; body_class(); echo '>';
+echo '<body '; body_class($body_class); echo '>';
 
     echo '<div class="page-wrapper outer container">';
 

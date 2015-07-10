@@ -21,7 +21,10 @@
 	&.dark-blue{
 		background-image: url('../images/graphics/dark-blue-triangle.svg');
 	}
-
+}
+.ie10 .pre-hero, .ie .pre-hero{
+	right: 0;
+	width: 45%;
 }
 .hero-area{
 	position: relative;

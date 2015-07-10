@@ -129,3 +129,7 @@ footer{
 			}
 		}
 }
+
+.ie footer .triangle.dark-blue, .ie footer .site-logo, .ie10 footer .triangle.dark-blue, .ie10 footer .site-logo{
+	background-image: none;
+}
