@@ -32,12 +32,6 @@ var isIE10 = false;
     <![endif]-->
 
 </head>
-<?php $body_class = ''; ?>
-<script>
-if(isIE10){
-<?php $body_class = 'ie10'; ?>
-}
-</script>
 <?php
 echo '<body '; body_class($body_class); echo '>';
 
