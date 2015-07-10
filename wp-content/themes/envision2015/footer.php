@@ -12,11 +12,7 @@
 	<span class="copyright">© Copyright 2010—2015 Envision Interiors Inc.</span>
 	<span class="credit">Website by <a href="http://gabesimagination.prosite.com" title="Visit Gabe's Imagination" target="_blank">Gabe's Imagination</a></span>
 </footer>
-<script>
-if(isIE10){
-jQuery('body').addClass('ie10');
-}
-</script>
+
 <?
         //if(!is_user_logged_in() && 'SITE_ENVIRONMENT' == "production"){
 	       ?>

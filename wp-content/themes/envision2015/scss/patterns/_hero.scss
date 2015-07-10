@@ -25,6 +25,13 @@
 .ie10 .pre-hero, .ie .pre-hero{
 	right: 0;
 	width: 45%;
+	background-image: none;
+	&.medium-blue{
+		background-image: none;
+	}
+	&.dark-blue{
+		background-image: none;
+	}
 }
 .hero-area{
 	position: relative;

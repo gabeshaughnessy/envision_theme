@@ -34,7 +34,13 @@ var isIE10 = false;
 </head>
 <?php
 echo '<body '; body_class($body_class); echo '>';
-
+?>
+<script>
+if(isIE10){
+jQuery('body').addClass('ie10');
+}
+</script>
+<?php
     echo '<div class="page-wrapper outer container">';
 
     get_template_part('template-parts/primary-nav');

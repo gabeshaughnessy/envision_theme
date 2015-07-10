@@ -183,7 +183,9 @@ footer .site-logo a.logo.left { float: left; margin-left: .75em; }
 .pre-hero.medium-blue { background-image: url("../images/graphics/medium-blue-triangle.svg"); }
 .pre-hero.dark-blue { background-image: url("../images/graphics/dark-blue-triangle.svg"); }
 
-.ie10 .pre-hero, .ie .pre-hero { right: 0; width: 45%; }
+.ie10 .pre-hero, .ie .pre-hero { right: 0; width: 45%; background-image: none; }
+.ie10 .pre-hero.medium-blue, .ie .pre-hero.medium-blue { background-image: none; }
+.ie10 .pre-hero.dark-blue, .ie .pre-hero.dark-blue { background-image: none; }
 
 .hero-area { position: relative; width: 100%; }
 .hero-area h2 { max-width: 50%; }
@@ -233,8 +235,8 @@ footer .site-logo a.logo.left { float: left; margin-left: .75em; }
 #primary.nav.top-position .site-logo a.logo.left { float: left; margin-left: .75em; }
 @media screen and (max-width: 768px) { #primary.nav.top-position .site-logo a.logo.left { margin-left: .2em; } }
 
-.ie #primary.nav.top-position .site-logo, .ie10 #primary.nav.top-position .site-logo { width: 35%; position: absolute; right: 0; height: 40%; }
-.ie #primary.nav.top-position .site-logo a.logo, .ie10 #primary.nav.top-position .site-logo a.logo { width: 50%; }
+.ie #primary.nav.top-position .site-logo, .ie10 #primary.nav.top-position .site-logo { width: 35%; position: absolute; right: 0; height: 40%; background-image: none; }
+.ie #primary.nav.top-position .site-logo a.logo, .ie10 #primary.nav.top-position .site-logo a.logo { width: 50%; margin-right: 40px; margin-top: -50px; }
 
 .post-grid .post { display: block; float: left; width: 50%; padding: 1em; padding-left: 0; }
 @media screen and (max-width: 768px) { .post-grid .post { width: 100%; } }
