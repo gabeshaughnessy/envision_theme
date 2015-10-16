@@ -112,7 +112,7 @@ class acf_form_user {
 		
 		
 		// actions
-		add_action('admin_footer',					array($this, 'admin_footer'), 10, 1);
+		add_action('acf/input/admin_footer',					array($this, 'admin_footer'), 10, 1);
 		
 	}
 	
@@ -131,6 +131,10 @@ class acf_form_user {
 	*/
 	
 	function register_user() {
+		
+		// update vars
+		$this->form = '#registerform';
+		
 		
 		// render
 		$this->render( 0, 'register', 'div' );
@@ -290,11 +294,43 @@ class acf_form_user {
 ?>
 <style type="text/css">
 
-<?php echo $this->form; ?> p.submit .spinner {
-	vertical-align: top;
-	float: none;
-	margin-top: 4px;
+<?php if( is_admin() ): ?>
+
+/* override for user css */
+.acf-field input[type="text"],
+.acf-field input[type="password"],
+.acf-field input[type="number"],
+.acf-field input[type="search"],
+.acf-field input[type="email"],
+.acf-field input[type="url"],
+.acf-field select {
+    width: 25em;
 }
+
+.acf-field textarea {
+	width: 500px;
+}
+
+
+/* allow sub fields to display correctly */
+.acf-field .acf-field input[type="text"],
+.acf-field .acf-field input[type="password"],
+.acf-field .acf-field input[type="number"],
+.acf-field .acf-field input[type="search"],
+.acf-field .acf-field input[type="email"],
+.acf-field .acf-field input[type="url"],
+.acf-field .acf-field textarea,
+.acf-field .acf-field select {
+    width: 100%;
+}
+
+<?php else: ?>
+
+#registerform p.submit {
+	text-align: right;
+}
+
+<?php endif; ?>
 
 </style>
 <script type="text/javascript">
@@ -307,36 +343,14 @@ class acf_form_user {
 	// create spinner if not exists (may exist in future WP versions)
 	if( !$spinner.exists() ) {
 		
-		// create spinner
-		$spinner = $('<span class="spinner"></span>');
+		// create spinner (use .acf-spinner becuase .spinner CSS not included on register page)
+		$spinner = $('<span class="acf-spinner"></span>');
 		
 		
 		// append
 		$('<?php echo $this->form; ?> p.submit').append( $spinner );
 		
 	}
-	
-	
-	// show spinner on submit
-	$(document).on('submit', '<?php echo $this->form; ?>', function(){
-		
-		// show spinner
-		$spinner.css('display', 'inline-block');
-		
-	});
-	
-	
-	// hide spinner after validation
-	acf.add_filter('validation_complete', function( json, $form ){
-		
-		// hide spinner
-		$spinner.css('display', 'none');
-		
-		
-		// return
-		return json;
-				
-	});
 	
 })(jQuery);	
 </script>

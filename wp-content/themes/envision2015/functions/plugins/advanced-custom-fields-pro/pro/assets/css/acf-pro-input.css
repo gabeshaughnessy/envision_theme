@@ -426,8 +426,8 @@ html[dir="rtl"] .acf-flexible-content .layout .acf-fc-layout-controlls {
   color: #666666;
   font-size: 12px;
   line-height: 25px;
-  padding: 0 4px 8px 0;
-  width: auto;
+  padding: 0 4px 8px 0 !important;
+  width: auto !important;
   vertical-align: top;
 }
 .acf-gallery .acf-gallery-side-data .acf-label label,
@@ -436,7 +436,7 @@ html[dir="rtl"] .acf-flexible-content .layout .acf-fc-layout-controlls {
 }
 .acf-gallery .acf-gallery-side-data .acf-input,
 .acf-gallery .acf-gallery-side-data td.field {
-  padding: 0 0 8px;
+  padding: 0 0 8px !important;
 }
 .acf-gallery .acf-gallery-side-data textarea {
   min-height: 0;
@@ -450,10 +450,10 @@ html[dir="rtl"] .acf-flexible-content .layout .acf-fc-layout-controlls {
 }
 /* selected */
 .attachment.acf-selected {
-  opacity: 0.3;
+  box-shadow: 0 0 0 3px #fff inset, 0 0 0 7px #1e8cbe inset !important;
 }
 .attachment.acf-selected .check {
-  display: block;
+  display: none !important;
 }
 /* column widths */
 .acf-gallery[data-columns="1"] .acf-gallery-attachment {

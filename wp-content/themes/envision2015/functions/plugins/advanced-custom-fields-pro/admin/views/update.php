@@ -60,32 +60,32 @@ extract($args);
 				
 				// get results
 			    var xhr = $.ajax({
-			    	url:		'<?php echo admin_url('admin-ajax.php'); ?>',
-					dataType:	'json',
-					type:		'post',
-					data:		{
-						action:		'acf/admin/data_upgrade',
-						nonce:		'<?php echo wp_create_nonce('acf_upgrade'); ?>',
+			    	url: '<?php echo admin_url('admin-ajax.php'); ?>',
+					dataType: 'json',
+					type: 'post',
+					data: {
+						action:	'acf/admin/data_upgrade',
+						nonce: '<?php echo wp_create_nonce('acf_upgrade'); ?>'
 					},
 					success: function( json ){
 						
-						// bail early if no success
-						if( !json || !json.data ) {
+						// vars
+						var message = acf.get_ajax_message(json);
+						
+						
+						// bail early if no message text
+						if( !message.text ) {
 							
 							return;
 							
 						}
 						
 						
-						// message
-						if( json.data.message ) {
-							
-							$('.show-on-ajax').html( json.data.message );
-							
-						}
+						// show message
+						$('.show-on-ajax').html( message.text );
 						
 					},
-					complete: function(){
+					complete: function( json ){
 						
 						// remove spinner
 						$('.acf-loading').hide();

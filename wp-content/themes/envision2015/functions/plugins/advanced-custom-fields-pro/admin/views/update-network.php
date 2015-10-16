@@ -154,11 +154,11 @@ extract($args);
 				// vars
 				var $input = this.$inputs.eq( this.i ),
 					$tr = $input.closest('tr'),
-					text = '<?php _e('Upgrade complete'); ?>';
+					text = '<?php _e('Upgrade complete', 'acf'); ?>';
 				
 				
 				// add loading
-				$tr.find('.response').html('<i class="acf-loading"></i></span> <?php _e('Upgrading data to ' . $plugin_version); ?>');
+				$tr.find('.response').html('<i class="acf-loading"></i></span> <?php _e('Upgrading data to', 'acf'); ?> <?php echo $plugin_version; ?>');
 				
 				
 				// get results
@@ -173,26 +173,26 @@ extract($args);
 					},
 					success: function( json ){
 						
-						// bail early if no success
-						if( !json || !json.data ) {
+						// remove input
+						$input.prop('checked', false);
+						$input.remove();
+						
+						
+						// vars
+						var message = acf.get_ajax_message(json);
+						
+						
+						// bail early if no message text
+						if( !message.text ) {
 							
 							return;
 							
 						}
 						
 						
-						// remove input
-						$input.removeAttr('checked');
-						$input.remove();
-						
-						
-						// message
-						if( json.data.message ) {
-							
-							text = '<pre>' + json.data.message +  '</pre>';
-							
-						}
-						
+						// update text
+						text = '<pre>' + message.text +  '</pre>';
+												
 					},
 					complete: function(){
 						

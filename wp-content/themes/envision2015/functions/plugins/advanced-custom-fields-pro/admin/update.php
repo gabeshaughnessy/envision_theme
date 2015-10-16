@@ -80,6 +80,11 @@ class acf_admin_update {
 				// get site updates
 				$updates = acf_get_updates();
 				
+				
+				// restore
+				restore_current_blog();
+				
+				
 				if( $updates ) {
 				
 					$prompt = true;
@@ -88,9 +93,6 @@ class acf_admin_update {
 				}
 				
 			}
-			
-			// restore
-			restore_current_blog();
 			
 		}
 		
@@ -204,10 +206,11 @@ class acf_admin_update {
 				// update
 				$sites[ $i ] = $site;
 				
+				
+				// restore
+				restore_current_blog();
+				
 			}
-			
-			// restore
-			restore_current_blog();
 			
 		}
 		
@@ -217,6 +220,10 @@ class acf_admin_update {
 			'sites' => $sites,
 			'plugin_version'	=> $plugin_version
 		);
+		
+		
+		// enqueue
+		acf_enqueue_scripts();
 		
 		
 		// load view
@@ -349,6 +356,10 @@ class acf_admin_update {
 			'updates'			=> acf_get_updates(),
 			'plugin_version'	=> acf_get_setting('version')
 		);
+		
+		
+		// enqueue
+		acf_enqueue_scripts();
 		
 		
 		// load view

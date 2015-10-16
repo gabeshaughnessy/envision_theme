@@ -144,7 +144,6 @@ class acf_field_gallery extends acf_field {
 	
 	function ajax_update_attachment() {
 		
-		
 		// validate
 		if( ! wp_verify_nonce($_REQUEST['nonce'], 'acf_nonce') ) {
 		
@@ -518,9 +517,7 @@ class acf_field_gallery extends acf_field {
 							<?php endif; ?>
 						</div>
 						<div class="actions acf-soh-target">
-							<a class="acf-icon dark remove-attachment" data-id="<?php echo $post->ID; ?>" href="#">
-								<i class="acf-sprite-delete"></i>
-							</a>
+							<a class="acf-icon acf-icon-cancel dark remove-attachment" data-id="<?php echo $post->ID; ?>" href="#"></a>
 						</div>
 					</div>
 					

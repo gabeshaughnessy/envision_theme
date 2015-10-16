@@ -245,17 +245,8 @@ class acf_form_taxonomy {
 	*/
 	
 	function admin_footer() {
-		
+	
 ?>
-<style type="text/css">
-
-<?php echo $this->form; ?> p.submit .spinner {
-	vertical-align: top;
-	float: none;
-	margin-top: 4px;
-}
-
-</style>
 <script type="text/javascript">
 (function($) {
 	
@@ -276,95 +267,78 @@ class acf_form_taxonomy {
 	}
 	
 	
-	// show spinner on submit
-	$(document).on('submit', '<?php echo $this->form; ?>', function(){
-		
-		// show spinner
-		$spinner.css('display', 'inline-block');
-		
-	});
-	
-	
-	// hide spinner after validation
-	acf.add_filter('validation_complete', function( json, $form ){
-		
-		// hide spinner
-		$spinner.css('display', 'none');
+	// update acf validation class
+	acf.validation.error_class = 'form-invalid';
 		
 		
-		// return
-		return json;
-				
-	});
-	
-	
 <?php if( $this->form == '#addtag' ): ?>
 
 	// store origional HTML
 	var $orig = $('#addtag').children('.acf-field').clone();
 	
 	
-	$(document).ready(function(){
+	// events
+	$('#submit').on('click', function( e ){
 		
-		// update acf validation class
-		acf.validation.error_class = 'form-invalid';
+		// bail early if not active
+		if( !acf.validation.active ) {
+		
+			return true;
+			
+		}
 		
 		
-		// events
-		$('#submit').on('click', function( e ){
+		// ignore validation (only ignore once)
+		if( acf.validation.ignore ) {
+		
+			acf.validation.ignore = 0;
+			return true;
 			
-			// bail early if this form does not contain ACF data
-			if( ! $('#addtag').find('#acf-form-data').exists() ) {
-				
-				return true;
+		}
+		
+		
+		// bail early if this form does not contain ACF data
+		if( !$('#addtag').find('#acf-form-data').exists() ) {
 			
-			}
-			
-			
-			// ignore this submit?
-			if( acf.validation.ignore == 1 ) {
-			
-				acf.validation.ignore = 0;
-				return true;
-			
-			}
-			
-	
-			// bail early if disabled
-			if( acf.validation.active == 0 ) {
-			
-				return true;
-			
-			}
-			
-			
-			// stop WP JS validation
-			e.stopImmediatePropagation();
-			
-			
-			// store submit trigger so it will be clicked if validation is passed
-			acf.validation.$trigger = $(this);
-			
-			
-			// show spinner
-			$spinner.css('display', 'inline-block');
-			
-			
-			// run validation
-			acf.validation.fetch( $('#addtag') );
-			
-			
-			// stop all other click events on this input
-			return false;
-			
-		});
-	
+			return true;
+		
+		}
+		
+		
+		// stop WP JS validation
+		e.stopImmediatePropagation();
+		
+		
+		// store submit trigger so it will be clicked if validation is passed
+		acf.validation.$trigger = $(this);
+		
+					
+		// run validation
+		acf.validation.fetch( $('#addtag') );
+		
+		
+		// stop all other click events on this input
+		return false;
+		
 	});
 	
+
 	$(document).ajaxComplete(function(event, xhr, settings) {
 		
 		// bail early if is other ajax call
 		if( settings.data.indexOf('action=add-tag') == -1 ) {
+			
+			return;
+			
+		}
+		
+		
+		// unlock form
+		acf.validation.toggle( $('#addtag'), 'unlock' );
+		
+		
+		// bail early if response contains error
+		if( xhr.responseText.indexOf('wp_error') !== -1 ) {
 			
 			return;
 			
@@ -386,7 +360,6 @@ class acf_form_taxonomy {
 		// action for 3rd party customization
 		acf.do_action('append', $('#addtag'));
 		
-
 	});
 	
 <?php endif; ?>

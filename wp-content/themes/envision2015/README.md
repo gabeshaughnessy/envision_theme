@@ -6,14 +6,14 @@ This is where the magic happens. Activate this theme for a cool updated site.
  - [x] supplier filtering by type
  - [x] project tags
  - [x] project filter by type
- - [ ] get houzz and pinterest profiles - comment out houzz until their profile is ready.
- - [ ] remove house logo temporarily
- - [ ] about page content
- - [ ] wp seo plugin and page titles
- - [ ] add google analytics and tracking events
- - [ ] new version of the logo 
- - [ ] Constrain the main content area to the outer container
- - [ ] About Page content - people, projects and showroom - get content from the doc.
+ - [x] get houzz and pinterest profiles - comment out houzz until their profile is ready.
+ - [x] remove houzz logo temporarily
+ - [x] about page content
+ - [x] wp seo plugin and page titles
+ - [x] add google analytics and tracking events
+ - [x] new version of the logo 
+ - [x] Constrain the main content area to the outer container
+ - [x] About Page content - people, projects and showroom - get content from the doc.
  - [ ] Migrate media from local to the staging site.
- - [ ] get ai logo from marianne.
+ - [x] get ai logo from marianne.
  - [ ] cross browser support 
