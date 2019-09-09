@@ -3,7 +3,7 @@
 	<div itemscope itemtype="http://schema.org/LocalBusiness">
 	   <span itemprop="name">Envision Interiors, Inc</span><br />
 	   <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-	     <span itemprop="streetAddress">2410 SE 11th Ave </span><span itemprop="addressLocality">Portland</span>, <span itemprop="addressRegion">Oregon</span> <span itemprop="postalCode">97214</span>
+	     <span itemprop="streetAddress">2737 SW Corbett Ave </span><span itemprop="addressLocality">Portland</span>, <span itemprop="addressRegion">Oregon</span> <span itemprop="postalCode">97201</span>
 	   </div>
 	   <span> | </span>
 	   Phone: <span itemprop="telephone">503-954-2245</span>
